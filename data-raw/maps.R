@@ -12,7 +12,7 @@ map_data <- list()
 nm <- list()
 
 for (i in 1:length(year)) {
-  nm$city <- paste0("map_", year[i], "_city")
+  nm$city <- paste("map", year[i], "city", sep = "_")
   map_data[[nm$city]] <- tryCatch(
     {
       # City boundary map
@@ -22,7 +22,7 @@ for (i in 1:length(year)) {
     error = function(e) NA
   )
 
-  nm$tract <- paste0("map_", year[i], "_tract")
+  nm$tract <- paste("map", year[i], "tract", sep = "_")
   map_data[[nm$tract]] <- tryCatch(
     {
       # Census tract map
@@ -35,7 +35,7 @@ for (i in 1:length(year)) {
     error = function(e) NA
   )
 
-  nm$zcta <- paste0("map_", year[i], "_zcta")
+  nm$zcta <- paste("map", year[i], "zcta", sep = "_")
   map_data[[nm$zcta]] <- tryCatch(
     {
       # ZCTA map
@@ -48,11 +48,32 @@ for (i in 1:length(year)) {
   )
 }
 
-map_data <- c(
-  map_data_2014_2019,
-  map_data_2020_2022,
-  map_data_2023
-)
+# Compare GEOIDs from year to year
+ls <- list()
 
+for (i in 1:(length(year) - 1)) {
+  # Compare tract GEOIDs
+  x <- map_data[[paste0("map_", year[i], "_tract")]]$GEOID
+  y <- map_data[[paste0("map_", year[i + 1], "_tract")]]$GEOID
+  nm <- paste("tracts", year[i], "vs", year[i + 1], sep = "_")
+  ls[[nm]] <- identical(sort(x), sort(y))
+
+  # Compare ZCTA GEOIDs
+  x <- map_data[[paste0("map_", year[i], "_zcta")]]$GEOID20
+  y <- map_data[[paste0("map_", year[i + 1], "_zcta")]]$GEOID20
+  nm <- paste("zctas", year[i], "vs", year[i + 1], sep = "_")
+  ls[[nm]] <- identical(sort(x), sort(y))
+}
+
+# Save in `data/`
+for (i in 1:length(map_data)) {
+  nm <- paste0("data/", names(map_data)[i], ".rda")
+  save(
+    list = names(map_data)[i],
+    file = nm,
+    envir = as.environment(map_data)
+  )
+}
+
+# Save in `data-raw/`
 saveRDS(map_data, "data-raw/map_data_2014_2023.rds")
-

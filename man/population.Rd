@@ -3,28 +3,217 @@
 \docType{data}
 \name{population}
 \alias{population}
-\alias{pop_city_2023acs5}
-\alias{pop_tract_2023acs5}
-\alias{pop_zcta_2023acs5}
+\alias{pop_2023_acs1}
+\alias{pop_2023_acs5_city}
+\alias{pop_2023_acs5_tract}
+\alias{pop_2023_acs5_zcta}
+\alias{pop_2022_acs1}
+\alias{pop_2022_acs5_city}
+\alias{pop_2022_acs5_tract}
+\alias{pop_2022_acs5_zcta}
+\alias{pop_2021_acs1}
+\alias{pop_2021_acs5_city}
+\alias{pop_2021_acs5_tract}
+\alias{pop_2021_acs5_zcta}
+\alias{pop_2020_acs1}
+\alias{pop_2020_acs5_city}
+\alias{pop_2020_acs5_tract}
+\alias{pop_2020_acs5_zcta}
+\alias{pop_2019_acs1}
+\alias{pop_2019_acs5_city}
+\alias{pop_2019_acs5_tract}
+\alias{pop_2019_acs5_zcta}
+\alias{pop_2018_acs1}
+\alias{pop_2018_acs5_city}
+\alias{pop_2018_acs5_tract}
+\alias{pop_2018_acs5_zcta}
+\alias{pop_2017_acs1}
+\alias{pop_2017_acs5_city}
+\alias{pop_2017_acs5_tract}
+\alias{pop_2017_acs5_zcta}
+\alias{pop_2016_acs1}
+\alias{pop_2016_acs5_city}
+\alias{pop_2016_acs5_tract}
+\alias{pop_2016_acs5_zcta}
+\alias{pop_2015_acs1}
+\alias{pop_2015_acs5_city}
+\alias{pop_2015_acs5_tract}
+\alias{pop_2015_acs5_zcta}
+\alias{pop_2014_acs1}
+\alias{pop_2014_acs5_city}
+\alias{pop_2014_acs5_tract}
+\alias{pop_2014_acs5_zcta}
 \title{Kansas City population data sets}
 \format{
 TBD...
 
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 134915 rows and 7 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 647 rows and 8 columns.
 
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 46585 rows and 7 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 144281 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 49819 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 850 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 667 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 148741 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 51359 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 826 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 630 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 140490 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 48510 rows and 8 columns.
+
+An object of class \code{logical} of length 1.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 630 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 140490 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 48510 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 826 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 630 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 128520 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 43470 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 826 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 630 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 128520 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 43470 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 826 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 630 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 128520 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 43470 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 826 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 630 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 128520 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 43470 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 826 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 630 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 128520 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 43470 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 826 rows and 7 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 529 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 107916 rows and 8 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 36501 rows and 8 columns.
 }
 \source{
-2019-2023 American Community Survey 5-Year Estimates
+1-year American Community survey (2014-2023), 5-year American
+Community survey (2014-2023), decennial census (2010, 2020)
 }
 \usage{
-pop_city_2023acs5
+pop_2023_acs1
 
-pop_tract_2023acs5
+pop_2023_acs5_city
 
-pop_zcta_2023acs5
+pop_2023_acs5_tract
+
+pop_2023_acs5_zcta
+
+pop_2022_acs1
+
+pop_2022_acs5_city
+
+pop_2022_acs5_tract
+
+pop_2022_acs5_zcta
+
+pop_2021_acs1
+
+pop_2021_acs5_city
+
+pop_2021_acs5_tract
+
+pop_2021_acs5_zcta
+
+pop_2020_acs1
+
+pop_2020_acs5_city
+
+pop_2020_acs5_tract
+
+pop_2020_acs5_zcta
+
+pop_2019_acs1
+
+pop_2019_acs5_city
+
+pop_2019_acs5_tract
+
+pop_2019_acs5_zcta
+
+pop_2018_acs1
+
+pop_2018_acs5_city
+
+pop_2018_acs5_tract
+
+pop_2018_acs5_zcta
+
+pop_2017_acs1
+
+pop_2017_acs5_city
+
+pop_2017_acs5_tract
+
+pop_2017_acs5_zcta
+
+pop_2016_acs1
+
+pop_2016_acs5_city
+
+pop_2016_acs5_tract
+
+pop_2016_acs5_zcta
+
+pop_2015_acs1
+
+pop_2015_acs5_city
+
+pop_2015_acs5_tract
+
+pop_2015_acs5_zcta
+
+pop_2014_acs1
+
+pop_2014_acs5_city
+
+pop_2014_acs5_tract
+
+pop_2014_acs5_zcta
 }
 \description{
-Tables with population data for different geographic levels.
+Kansas City, Missouri population data sourced from the US Census Bureau's
+decennial census and American Community Survey (ACS). 1-year ACS data is
+available at the city geographic level only. 5-year ACS data is available
+at the city, census tract, and ZCTA geographic levels.
 }
 \keyword{datasets}

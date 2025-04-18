@@ -3,9 +3,36 @@
 \docType{data}
 \name{maps}
 \alias{maps}
-\alias{map_city_2024}
-\alias{map_tract_2024}
-\alias{map_zcta_2024}
+\alias{map_2023_city}
+\alias{map_2023_tract}
+\alias{map_2023_zcta}
+\alias{map_2022_city}
+\alias{map_2022_tract}
+\alias{map_2022_zcta}
+\alias{map_2021_city}
+\alias{map_2021_tract}
+\alias{map_2021_zcta}
+\alias{map_2020_city}
+\alias{map_2020_tract}
+\alias{map_2020_zcta}
+\alias{map_2019_city}
+\alias{map_2019_tract}
+\alias{map_2019_zcta}
+\alias{map_2018_city}
+\alias{map_2018_tract}
+\alias{map_2018_zcta}
+\alias{map_2017_city}
+\alias{map_2017_tract}
+\alias{map_2017_zcta}
+\alias{map_2016_city}
+\alias{map_2016_tract}
+\alias{map_2016_zcta}
+\alias{map_2015_city}
+\alias{map_2015_tract}
+\alias{map_2015_zcta}
+\alias{map_2014_city}
+\alias{map_2014_tract}
+\alias{map_2014_zcta}
 \title{Kansas City boundary maps}
 \format{
 TBD...
@@ -13,18 +40,127 @@ TBD...
 An object of class \code{sf} (inherits from \code{data.frame}) with 223 rows and 14 columns.
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 77 rows and 11 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 223 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 77 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 223 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 77 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 223 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 77 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 204 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 78 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 204 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 78 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 204 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 78 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 204 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 78 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 204 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 78 rows and 10 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 204 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 78 rows and 10 columns.
 }
 \source{
-2024 TIGER/Line Shapefiles (US Census)
+US Census Bureau TIGER/Line Shapefiles (2014-2023)
 }
 \usage{
-map_city_2024
+map_2023_city
 
-map_tract_2024
+map_2023_tract
 
-map_zcta_2024
+map_2023_zcta
+
+map_2022_city
+
+map_2022_tract
+
+map_2022_zcta
+
+map_2021_city
+
+map_2021_tract
+
+map_2021_zcta
+
+map_2020_city
+
+map_2020_tract
+
+map_2020_zcta
+
+map_2019_city
+
+map_2019_tract
+
+map_2019_zcta
+
+map_2018_city
+
+map_2018_tract
+
+map_2018_zcta
+
+map_2017_city
+
+map_2017_tract
+
+map_2017_zcta
+
+map_2016_city
+
+map_2016_tract
+
+map_2016_zcta
+
+map_2015_city
+
+map_2015_tract
+
+map_2015_zcta
+
+map_2014_city
+
+map_2014_tract
+
+map_2014_zcta
 }
 \description{
-Tables with map data for different geographies.
+Kansas City, Missouri map data sourced from the US Census Bureau. Maps are
+available for the city, census tract, and ZCTA geographic levels.
 }
 \keyword{datasets}
