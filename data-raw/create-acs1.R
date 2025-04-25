@@ -1,4 +1,4 @@
-# Create 1-year ACS population data sets
+# Create 1-year ACS data sets
 
 library(tidyverse)
 library(tidycensus)
@@ -12,18 +12,20 @@ for (i in 1:length(year)) {
   ls_acs1[[nm]] <- tryCatch(
     {
       # Get variables for Age & Sex, Race, and Hispanic Origin tables
-      vars_full <- load_variables(year[i], surv)
-      vars <- vars_full$name[grepl("^[BC]0[123]", vars_full$name)]
+      vars_df <- load_variables(year[i], surv, cache = TRUE)
+      vars <- vars_df$name[grepl("^[BC]0[123]", vars_df$name)]
       # Get ACS data, join to variable details, and filter for geography
       get_acs(
         geography = "place",
         variables = vars,
         year = year[i],
         state = 29,
-        survey = surv
+        key = keyring::key_get("census-api-key"),
+        survey = surv,
+        show_call = TRUE
       ) |>
         left_join(
-          vars_full,
+          vars_df,
           by = c("variable" = "name")
         ) |>
         filter(NAME == "Kansas City city, Missouri")

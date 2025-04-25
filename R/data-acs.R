@@ -1,4 +1,4 @@
-#' Population data sets
+#' American Community Survey population data
 #'
 #' @description
 #' These data sets contain population data for Kansas City, Missouri, sourced
@@ -8,10 +8,11 @@
 #' area (ZCTA).
 #'
 #' Data sets were downloaded from [data.census.gov][cen] using the
-#' [tidycensus][tc] package. Tables... variables...
+#' [tidycensus][tc] package. All data variables from the full and collapsed Age
+#' and Sex, Race, and Hispanic Origin tables are included (i.e., tables
+#' beginning with B01, B02, B03, C01, C02, and C03).
 #'
-#' See [Guidance for Data Users][gdu] for information from census.gov on how to
-#' use ACS data.
+#' See [Guidance for Data Users][gdu] for information on how to use ACS data.
 #'
 #' [cen]:https://data.census.gov/
 #' [tc]:https://walker-data.com/tidycensus/index.html
@@ -33,7 +34,8 @@
 #'   }
 #'   \item{variable}{
 #'     \itemize{
-#'       \item Variable ID consisting of the source table ID and variable code separated by an underscore
+#'       \item Variable code (ACS table and variable codes separated by an
+#'       underscore)
 #'       \item Data type: character
 #'     }
 #'   }
@@ -45,19 +47,19 @@
 #'   }
 #'   \item{moe}{
 #'     \itemize{
-#'       \item Margin of error for estimate
+#'       \item Margin of error
 #'       \item Data type: double
 #'     }
 #'   }
 #'   \item{label}{
 #'     \itemize{
-#'       \item Variable label consisting of the nested sequence of column labels from the source table
+#'       \item Descriptive variable label
 #'       \item Data type: character
 #'     }
 #'   }
 #'   \item{concept}{
 #'     \itemize{
-#'       \item Source table name
+#'       \item ACS table name
 #'       \item Data type: character
 #'     }
 #'   }
@@ -70,9 +72,10 @@
 #'   }
 #' }
 #'
-#' @source American Community Survey 1-Year and 5-Year data sets (2014-2023)
+#' @source US Census Bureau American Community Survey 1-Year and 5-Year data
+#' sets (2014-2023)
 #'
-#' @name population
+#' @name acs
 #' @keywords datasets
 #'
 #' @examples
@@ -80,81 +83,81 @@
 #'
 #' acs5_tract_2023
 #'
-#' @rdname population
+#' @rdname acs
 "acs1_2014"
-#' @rdname population
+#' @rdname acs
 "acs1_2015"
-#' @rdname population
+#' @rdname acs
 "acs1_2016"
-#' @rdname population
+#' @rdname acs
 "acs1_2017"
-#' @rdname population
+#' @rdname acs
 "acs1_2018"
-#' @rdname population
+#' @rdname acs
 "acs1_2019"
-#' @rdname population
+#' @rdname acs
 "acs1_2021"
-#' @rdname population
+#' @rdname acs
 "acs1_2022"
-#' @rdname population
+#' @rdname acs
 "acs1_2023"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2014"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2015"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2016"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2017"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2018"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2019"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2020"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2021"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2022"
-#' @rdname population
+#' @rdname acs
 "acs5_city_2023"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2014"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2015"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2016"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2017"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2018"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2019"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2020"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2021"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2022"
-#' @rdname population
+#' @rdname acs
 "acs5_tract_2023"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2014"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2015"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2016"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2017"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2018"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2019"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2020"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2021"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2022"
-#' @rdname population
+#' @rdname acs
 "acs5_zcta_2023"

@@ -1,4 +1,4 @@
-# Create 5-year ACS population data sets (ZCTA)
+# Create 5-year ACS data sets (ZCTA)
 
 library(tidyverse)
 library(tidycensus)
@@ -18,8 +18,8 @@ for (i in 1:length(year)) {
   acs5_zcta[[nm]] <- tryCatch(
     {
       # Get variables for Age & Sex, Race, and Hispanic Origin tables
-      vars_full <- load_variables(year[i], surv)
-      vars <- vars_full$name[grepl("^[BC]0[123]", vars_full$name)]
+      vars_df <- load_variables(year[i], surv, cache = TRUE)
+      vars <- vars_df$name[grepl("^[BC]0[123]", vars_df$name)]
       # Get ACS data, join to variable details, and filter for geography
       if (year[i] < 2020) {
         get_acs(
@@ -28,10 +28,12 @@ for (i in 1:length(year)) {
           year = year[i],
           zcta = shp[[shp_nm]][[var]],
           state = 29, # required for pre-2020 data
-          survey = surv
+          key = keyring::key_get("census-api-key"),
+          survey = surv,
+          show_call = TRUE
         ) |>
           left_join(
-            vars_full,
+            vars_df,
             by = c("variable" = "name")
           )
       } else {
@@ -40,10 +42,11 @@ for (i in 1:length(year)) {
           variables = vars,
           year = year[i],
           zcta = shp[[shp_nm]][[var]],
+          key = keyring::key_get("census-api-key"),
           survey = surv
         ) |>
           left_join(
-            vars_full,
+            vars_df,
             by = c("variable" = "name")
           )
       }
