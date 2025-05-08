@@ -2,15 +2,12 @@
 #'
 #' @description
 #' TIGER/Line shapefiles for ZCTAs in Kansas City, Missouri, downloaded from
-#' [census.gov][cen].
+#' [census.gov][cen] and modified using [get_kc_sf()].
 #'
 #' [cen]:https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html
 #'
 #' The US Census Bureau uses the Global Coordinate System North American Datum
 #' of 1983 (GCS NAD83/EPSG: 4269).
-#'
-#' During 2010-2019, most variable names end in "10". Since 2020, most variable
-#' names end in "20".
 #'
 #' @format
 #' \describe{
@@ -54,13 +51,13 @@
 #'   \item{ALAND10/ALAND20}{
 #'     \itemize{
 #'       \item Land area
-#'       \item Data type: numeric
+#'       \item Data type: double
 #'     }
 #'   }
 #'   \item{AWATER10/AWATER20}{
 #'     \itemize{
 #'       \item Water area
-#'       \item Data type: numeric
+#'       \item Data type: double
 #'     }
 #'   }
 #'   \item{INTPTLAT10/INTPTLAT20}{
@@ -77,13 +74,31 @@
 #'   }
 #'   \item{geometry}{
 #'     \itemize{
-#'       \item TBD
-#'       \item Data type: character
+#'       \item Feature geometry
+#'       \item Data type: list
+#'     }
+#'   }
+#'   \item{area}{
+#'     \itemize{
+#'       \item Feature area
+#'       \item Data type: double
+#'     }
+#'   }
+#'   \item{kc_area}{
+#'     \itemize{
+#'       \item Feature area within Kansas City boundary
+#'       \item Data type: double
+#'     }
+#'   }
+#'   \item{kc_area_pct}{
+#'     \itemize{
+#'       \item Percentage of feature area within Kansas City boundary
+#'       \item Data type: double
 #'     }
 #'   }
 #' }
 #'
-#' @source US Census Bureau TIGER/Line Shapefiles (2014-2023)
+#' @source US Census Bureau TIGER/Line Shapefiles (2018-2024)
 #'
 #' @name sf-zcta
 #' @keywords datasets

@@ -2,7 +2,7 @@
 #'
 #' @description
 #' TIGER/Line shapefiles for census tracts in Kansas City, Missouri, downloaded
-#' from [census.gov][cen].
+#' from [census.gov][cen] and modified using [get_kc_sf()].
 #'
 #' [cen]:https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html
 #'
@@ -92,13 +92,31 @@
 #'   }
 #'   \item{geometry}{
 #'     \itemize{
-#'       \item TBD
-#'       \item Data type: character
+#'       \item Feature geometry
+#'       \item Data type: list
+#'     }
+#'   }
+#'   \item{area}{
+#'     \itemize{
+#'       \item Feature area
+#'       \item Data type: double
+#'     }
+#'   }
+#'   \item{kc_area}{
+#'     \itemize{
+#'       \item Feature area within Kansas City boundary
+#'       \item Data type: double
+#'     }
+#'   }
+#'   \item{kc_area_pct}{
+#'     \itemize{
+#'       \item Percentage of feature area within Kansas City boundary
+#'       \item Data type: double
 #'     }
 #'   }
 #' }
 #'
-#' @source US Census Bureau TIGER/Line Shapefiles (2014-2023)
+#' @source US Census Bureau TIGER/Line Shapefiles (2018-2024)
 #'
 #' @name sf-tract
 #' @keywords datasets

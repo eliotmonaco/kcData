@@ -2,7 +2,7 @@
 #'
 #' @description
 #' TIGER/Line shapefiles for the city of Kansas City, Missouri, downloaded from
-#' [census.gov][cen]..
+#' [census.gov][cen] and modified using [get_kc_sf()].
 #'
 #' [cen]:https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html
 #'
@@ -117,13 +117,13 @@
 #'   }
 #'   \item{geometry}{
 #'     \itemize{
-#'       \item TBD
-#'       \item Data type: character
+#'       \item Feature geometry
+#'       \item Data type: list
 #'     }
 #'   }
 #' }
 #'
-#' @source US Census Bureau TIGER/Line Shapefiles (2014-2023)
+#' @source US Census Bureau TIGER/Line Shapefiles (2018-2024)
 #'
 #' @name sf-city
 #' @keywords datasets

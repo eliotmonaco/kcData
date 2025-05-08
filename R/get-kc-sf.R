@@ -12,13 +12,12 @@
 #' Geographies that intersect with the city boundary are circumscribed to the
 #' city boundary if they are not fully within the city.
 #'
-#' These columns are added to the shapefiles for geographies intersecting with
-#' the city boundary:
+#' These columns are added to the shapefiles for all geographies other than
+#' "place":
 #'
-#' - `area`: the total area of the geographic unit
-#' - `kc_area`: the area of the geographic unit within the city boundary
-#' - `kc_area_pct`: the percentage of the geographic unit within the city
-#' boundary
+#' - `area`: the total area of the feature
+#' - `kc_area`: the area of the feature contained within the city boundary
+#' - `kc_area_pct`: the percentage of the feature within the city boundary
 #'
 #' Area is calculated by [sf::st_area()].
 #'

@@ -119,8 +119,8 @@
 }
 \item{geometry}{
 \itemize{
-\item TBD
-\item Data type: character
+\item Feature geometry
+\item Data type: list
 }
 }
 }
@@ -138,7 +138,7 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 1
 An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
 }
 \source{
-US Census Bureau TIGER/Line Shapefiles (2014-2023)
+US Census Bureau TIGER/Line Shapefiles (2018-2024)
 }
 \usage{
 sf_city_2018
@@ -157,7 +157,7 @@ sf_city_2024
 }
 \description{
 TIGER/Line shapefiles for the city of Kansas City, Missouri, downloaded from
-\href{https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html}{census.gov}..
+\href{https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html}{census.gov} and modified using \code{\link[=get_kc_sf]{get_kc_sf()}}.
 
 The US Census Bureau uses the Global Coordinate System North American Datum
 of 1983 (GCS NAD83/EPSG: 4269).

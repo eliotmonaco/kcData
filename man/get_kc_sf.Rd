@@ -29,13 +29,12 @@ areas (ZCTAs)). Files are downloaded using the \href{https://github.com/walkerke
 Geographies that intersect with the city boundary are circumscribed to the
 city boundary if they are not fully within the city.
 
-These columns are added to the shapefiles for geographies intersecting with
-the city boundary:
+These columns are added to the shapefiles for all geographies other than
+"place":
 \itemize{
-\item \code{area}: the total area of the geographic unit
-\item \code{kc_area}: the area of the geographic unit within the city boundary
-\item \code{kc_area_pct}: the percentage of the geographic unit within the city
-boundary
+\item \code{area}: the total area of the feature
+\item \code{kc_area}: the area of the feature contained within the city boundary
+\item \code{kc_area_pct}: the percentage of the feature within the city boundary
 }
 
 Area is calculated by \code{\link[sf:geos_measures]{sf::st_area()}}.
