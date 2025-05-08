@@ -5,25 +5,40 @@
 \title{Get simple features objects for Kansas City}
 \usage{
 get_kc_sf(
-  year,
-  geo = c("place", "county", "tract", "block group", "block", "zcta")
+  geo = c("place", "county", "tract", "block group", "block", "zcta"),
+  year
 )
 }
 \arguments{
-\item{year}{The year of the data set to download.}
-
 \item{geo}{The geography of the data set to download. \code{"place"} returns the
 city boundary geometry. All others return geometries that intersect with the
 city boundary.}
+
+\item{year}{The year of the data set to download.}
 }
 \value{
 A dataframe of class \code{sf} containing a simple feature list column.
 }
 \description{
-Download a shapefile from the US Census Bureau for Kansas City or an
-intersecting geography (counties, census tracts, census block groups, census
-blocks, or zip code tabulation areas (ZCTAs)). Shapefiles are downloaded
-using the \href{https://github.com/walkerke/tigris}{tigris} package.
+Download a TIGER/Line shapefile from the US Census Bureau with boundaries for
+Kansas City or for a geography intersecting with Kansas City (counties,
+census tracts, census block groups, census blocks, or zip code tabulation
+areas (ZCTAs)). Files are downloaded using the \href{https://github.com/walkerke/tigris}{tigris} package.
+}
+\details{
+Geographies that intersect with the city boundary are circumscribed to the
+city boundary if they are not fully within the city.
+
+These columns are added to the shapefiles for geographies intersecting with
+the city boundary:
+\itemize{
+\item \code{area}: the total area of the geographic unit
+\item \code{kc_area}: the area of the geographic unit within the city boundary
+\item \code{kc_area_pct}: the percentage of the geographic unit within the city
+boundary
+}
+
+Area is calculated by \code{\link[sf:geos_measures]{sf::st_area()}}.
 }
 \examples{
 \dontrun{

@@ -9,8 +9,12 @@
 #' [tig]:https://github.com/walkerke/tigris
 #'
 #' @details
+#' Geographies that intersect with the city boundary are circumscribed to the
+#' city boundary if they are not fully within the city.
+#'
 #' These columns are added to the shapefiles for geographies intersecting with
 #' the city boundary:
+#'
 #' - `area`: the total area of the geographic unit
 #' - `kc_area`: the area of the geographic unit within the city boundary
 #' - `kc_area_pct`: the percentage of the geographic unit within the city
@@ -34,57 +38,89 @@
 get_kc_sf <- function(
     geo = c("place", "county", "tract", "block group", "block", "zcta"),
     year) {
-  requireNamespace("tigris", quietly = TRUE)
-  requireNamespace("sf", quietly = TRUE)
+  requireNamespace("tigris")
+  requireNamespace("sf")
 
   geo <- match.arg(geo)
 
-  df <- tigris::places(state = 29, year = year)
+  # Download the Missouri shapefile
+  pl <- tryCatch(
+    get_raw_sf1(year),
+    error = function(e) NULL
+  )
 
-  df <- df[which(df$NAME == "Kansas City"), ]
+  if (is.null(pl)) return(pl)
 
+  # Filter for the city boundary
+  pl <- pl[which(pl$NAME == "Kansas City"), ]
+
+  # Return the city boundary or download the shapefile for the specified
+  # geography
   if (geo == "place") {
-    df
+    pl
   } else {
-    if (geo == "county") {
-      df2 <- tigris::counties(
-        state = 29,
-        year = year
-      )
-    } else if (geo == "tract") {
-      df2 <- tigris::tracts(
-        state = 29,
-        year = year
-      )
-    } else if (geo == "block group") {
-      df2 <- tigris::block_groups(
-        state = 29,
-        county = c("Cass", "Clay", "Jackson", "Platte"),
-        year = year
-      )
-    } else if (geo == "block") {
-      df2 <- tigris::blocks(
-        state = 29,
-        county = c("Cass", "Clay", "Jackson", "Platte"),
-        year = year
-      )
-    } else if (geo == "zcta") {
-      df2 <- tigris::zctas(
-        starts_with = c("64", "66"),
-        year = year
-      )
+    alt <- tryCatch(
+      get_raw_sf2(geo, year),
+      error = function(e) NULL
+    )
+
+    if (is.null(alt)) return(alt)
+
+    cols <- colnames(alt)
+
+    # Get the area of the full geographic unit
+    alt$area <- sf::st_area(alt)
+
+    # Restrict each unit to the portion within the city
+    alt <- sf::st_intersection(pl[, "geometry"], alt)
+
+    # Check validity of geometry
+    valid <- sf::st_is_valid(alt)
+
+    if (!all(valid)) {
+      alt <- sf::st_make_valid(alt)
+      message("Invalid geometry found in source data")
     }
 
-    cols <- colnames(df2)
+    # Get the area of the intersecting portion
+    alt$kc_area <- sf::st_area(alt)
 
-    df2$area <- sf::st_area(df2)
+    # Remove geometries with area of 0
+    if (any(as.numeric(alt$kc_area) == 0)) {
+      alt <- alt[as.numeric(alt$kc_area) != 0, ]
+      message("Geometries with area of 0 removed")
+    }
 
-    df2 <- sf::st_intersection(df2, df[, "geometry"])
+    # Calculate the percentage of the area within the city
+    alt$kc_area_pct <- as.numeric(alt$kc_area * 100 / alt$area)
 
-    df2$kc_area <- sf::st_area(df2)
+    alt[, c(cols, "area", "kc_area", "kc_area_pct")]
+  }
+}
 
-    df2$kc_area_pct <- as.numeric(df2$kc_area * 100 / df2$area)
+get_raw_sf1 <- function(year) {
+  tigris::places(state = 29, year = year)
+}
 
-    df2[, c(cols, "area", "kc_area", "kc_area_pct")]
+get_raw_sf2 <- function(geo, year) {
+  counties <- c(037, 047, 095, 165) # Cass, Clay, Jackson, & Platte
+  if (geo == "county") {
+    tigris::counties(state = 29, year = year)
+  } else if (geo == "tract") {
+    tigris::tracts(state = 29, year = year)
+  } else if (geo == "block group") {
+    tigris::block_groups(state = 29, county = counties, year = year)
+  } else if (geo == "block") {
+    tigris::blocks(state = 29, county = counties, year = year)
+  } else if (geo == "zcta") {
+    tigris::zctas(starts_with = 64:66, year = year)
+  }
+}
+
+get_raw_sf <- function(geo, year) {
+  if (geo == "place") {
+    get_raw_sf1(year)
+  } else {
+    get_raw_sf2(geo, year)
   }
 }
