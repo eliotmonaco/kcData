@@ -83,81 +83,81 @@
 #'
 #' acs5_tract_2023
 #'
-#' @rdname acs
-"acs1_2014"
-#' @rdname acs
-"acs1_2015"
-#' @rdname acs
-"acs1_2016"
-#' @rdname acs
-"acs1_2017"
-#' @rdname acs
-"acs1_2018"
-#' @rdname acs
-"acs1_2019"
-#' @rdname acs
-"acs1_2021"
-#' @rdname acs
-"acs1_2022"
-#' @rdname acs
-"acs1_2023"
-#' @rdname acs
-"acs5_city_2014"
-#' @rdname acs
-"acs5_city_2015"
-#' @rdname acs
-"acs5_city_2016"
-#' @rdname acs
-"acs5_city_2017"
-#' @rdname acs
-"acs5_city_2018"
-#' @rdname acs
-"acs5_city_2019"
-#' @rdname acs
-"acs5_city_2020"
-#' @rdname acs
-"acs5_city_2021"
-#' @rdname acs
-"acs5_city_2022"
-#' @rdname acs
-"acs5_city_2023"
-#' @rdname acs
-"acs5_tract_2014"
-#' @rdname acs
-"acs5_tract_2015"
-#' @rdname acs
-"acs5_tract_2016"
-#' @rdname acs
-"acs5_tract_2017"
-#' @rdname acs
-"acs5_tract_2018"
-#' @rdname acs
-"acs5_tract_2019"
-#' @rdname acs
-"acs5_tract_2020"
-#' @rdname acs
-"acs5_tract_2021"
-#' @rdname acs
-"acs5_tract_2022"
-#' @rdname acs
-"acs5_tract_2023"
-#' @rdname acs
-"acs5_zcta_2014"
-#' @rdname acs
-"acs5_zcta_2015"
-#' @rdname acs
-"acs5_zcta_2016"
-#' @rdname acs
-"acs5_zcta_2017"
-#' @rdname acs
-"acs5_zcta_2018"
-#' @rdname acs
-"acs5_zcta_2019"
-#' @rdname acs
-"acs5_zcta_2020"
-#' @rdname acs
-"acs5_zcta_2021"
-#' @rdname acs
-"acs5_zcta_2022"
-#' @rdname acs
-"acs5_zcta_2023"
+#' #' @rdname acs
+#' "acs1_2014"
+#' #' @rdname acs
+#' "acs1_2015"
+#' #' @rdname acs
+#' "acs1_2016"
+#' #' @rdname acs
+#' "acs1_2017"
+#' #' @rdname acs
+#' "acs1_2018"
+#' #' @rdname acs
+#' "acs1_2019"
+#' #' @rdname acs
+#' "acs1_2021"
+#' #' @rdname acs
+#' "acs1_2022"
+#' #' @rdname acs
+#' "acs1_2023"
+#' #' @rdname acs
+#' "acs5_city_2014"
+#' #' @rdname acs
+#' "acs5_city_2015"
+#' #' @rdname acs
+#' "acs5_city_2016"
+#' #' @rdname acs
+#' "acs5_city_2017"
+#' #' @rdname acs
+#' "acs5_city_2018"
+#' #' @rdname acs
+#' "acs5_city_2019"
+#' #' @rdname acs
+#' "acs5_city_2020"
+#' #' @rdname acs
+#' "acs5_city_2021"
+#' #' @rdname acs
+#' "acs5_city_2022"
+#' #' @rdname acs
+#' "acs5_city_2023"
+#' #' @rdname acs
+#' "acs5_tract_2014"
+#' #' @rdname acs
+#' "acs5_tract_2015"
+#' #' @rdname acs
+#' "acs5_tract_2016"
+#' #' @rdname acs
+#' "acs5_tract_2017"
+#' #' @rdname acs
+#' "acs5_tract_2018"
+#' #' @rdname acs
+#' "acs5_tract_2019"
+#' #' @rdname acs
+#' "acs5_tract_2020"
+#' #' @rdname acs
+#' "acs5_tract_2021"
+#' #' @rdname acs
+#' "acs5_tract_2022"
+#' #' @rdname acs
+#' "acs5_tract_2023"
+#' #' @rdname acs
+#' "acs5_zcta_2014"
+#' #' @rdname acs
+#' "acs5_zcta_2015"
+#' #' @rdname acs
+#' "acs5_zcta_2016"
+#' #' @rdname acs
+#' "acs5_zcta_2017"
+#' #' @rdname acs
+#' "acs5_zcta_2018"
+#' #' @rdname acs
+#' "acs5_zcta_2019"
+#' #' @rdname acs
+#' "acs5_zcta_2020"
+#' #' @rdname acs
+#' "acs5_zcta_2021"
+#' #' @rdname acs
+#' "acs5_zcta_2022"
+#' #' @rdname acs
+#' "acs5_zcta_2023"
