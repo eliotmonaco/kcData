@@ -112,7 +112,7 @@ get_raw_sf2 <- function(geo, year) {
   } else if (geo == "block") {
     tigris::blocks(state = 29, county = counties, year = year)
   } else if (geo == "zcta") {
-    tigris::zctas(starts_with = 64:66, year = year)
+    tigris::zctas(starts_with = 64, year = year)
   }
 }
 
