@@ -20,10 +20,10 @@ city boundary.}
 A dataframe of class \code{sf} containing a simple feature list column.
 }
 \description{
-Download a TIGER/Line shapefile from the US Census Bureau with boundaries for
-Kansas City or for a geography intersecting with Kansas City (counties,
-census tracts, census block groups, census blocks, or zip code tabulation
-areas (ZCTAs)). Files are downloaded using the \href{https://github.com/walkerke/tigris}{tigris} package.
+Download a TIGER/Line shapefile with boundaries for Kansas City or for a
+geography intersecting with Kansas City: county, census tract, census block
+group, census block, or zip code tabulation area (ZCTA). Files are downloaded
+from the US Census Bureau using the \href{https://github.com/walkerke/tigris}{tigris} package.
 }
 \details{
 Geographies that intersect with the city boundary are circumscribed to the
@@ -39,6 +39,14 @@ These columns are added to the shapefiles for all geographies other than
 
 Area is calculated by \code{\link[sf:geos_measures]{sf::st_area()}}.
 }
+\section{Additional resources}{
+\itemize{
+\item \href{https://www.census.gov/programs-surveys/geography/technical-documentation/complete-technical-documentation/tiger-geo-line.html}{TIGER/Line Shapefiles and TIGER/Line Files Technical Documentation}
+\item \href{https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf}{Standard Hierarchy of Census Geographic Entities}
+\item \href{https://github.com/walkerke/tigris}{tigris package}
+}
+}
+
 \examples{
 \dontrun{
 get_kc_sf(2024, "tract")

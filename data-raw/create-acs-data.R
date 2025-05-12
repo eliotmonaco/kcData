@@ -39,36 +39,3 @@ for (i in 1:length(acs_data)) {
 
 # Save in `data-raw/`
 saveRDS(acs_data, "data-raw/acs_2018_2023.rds")
-
-
-
-
-
-
-
-
-
-# link to census reporter for tables and variable codes
-
-mo_tracts <- tigris::tracts(state = 29, year = 2023)
-
-ggplot2::ggplot(data = sf_city_2023) +
-  ggplot2::geom_sf(linewidth = 1, fill = "green") +
-  ggplot2::geom_sf(data = mo_tracts |> dplyr::filter(GEOID == "29037060001"), color = "blue", fill = NA, linewidth = 1)
-
-
-
-mo_zctas <- tigris::zctas(starts_with = 64:66, year = 2023)
-
-ggplot2::ggplot(data = sf_city_2023) +
-  ggplot2::geom_sf(linewidth = 1, fill = "green") +
-  ggplot2::geom_sf(data = mo_zctas |> dplyr::filter(GEOID20 %in% x), color = "blue", fill = NA, linewidth = 1)
-
-
-
-
-
-
-
-
-

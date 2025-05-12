@@ -1,10 +1,10 @@
 #' Get simple features objects for Kansas City
 #'
 #' @description
-#' Download a TIGER/Line shapefile from the US Census Bureau with boundaries for
-#' Kansas City or for a geography intersecting with Kansas City (counties,
-#' census tracts, census block groups, census blocks, or zip code tabulation
-#' areas (ZCTAs)). Files are downloaded using the [tigris][tig] package.
+#' Download a TIGER/Line shapefile with boundaries for Kansas City or for a
+#' geography intersecting with Kansas City: county, census tract, census block
+#' group, census block, or zip code tabulation area (ZCTA). Files are downloaded
+#' from the US Census Bureau using the [tigris][tig] package.
 #'
 #' [tig]:https://github.com/walkerke/tigris
 #'
@@ -20,6 +20,16 @@
 #' - `kc_area_pct`: the percentage of the feature within the city boundary
 #'
 #' Area is calculated by [sf::st_area()].
+#'
+#' # Additional resources
+#'
+#' - [TIGER/Line Shapefiles and TIGER/Line Files Technical Documentation][tl]
+#' - [Standard Hierarchy of Census Geographic Entities][geo]
+#' - [tigris package][tig]
+#'
+#' [tl]:https://www.census.gov/programs-surveys/geography/technical-documentation/complete-technical-documentation/tiger-geo-line.html
+#' [geo]:https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf
+#' [tig]:https://github.com/walkerke/tigris
 #'
 #' @param geo The geography of the data set to download. `"place"` returns the
 #' city boundary geometry. All others return geometries that intersect with the
@@ -45,9 +55,11 @@ get_kc_sf <- function(
   # Download the Missouri shapefile
   pl <- tryCatch(
     get_raw_sf1(year),
-    error = function(e) NULL
+    error = function(e) {
+      cat("tigris error:", conditionMessage(e), "\n")
+      NULL
+    }
   )
-
   if (is.null(pl)) return(pl)
 
   # Filter for the city boundary
@@ -60,7 +72,10 @@ get_kc_sf <- function(
   } else {
     alt <- tryCatch(
       get_raw_sf2(geo, year),
-      error = function(e) NULL
+      error = function(e) {
+        cat("tigris error:", conditionMessage(e), "\n")
+        NULL
+      }
     )
 
     if (is.null(alt)) return(alt)

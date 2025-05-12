@@ -1,83 +1,39 @@
-# Create decennial census data sets
+devtools::load_all()
 
-library(tidyverse)
-library(tidycensus)
-
-
-vars_pl <- load_variables(2020, "pl", cache = TRUE)
-vars_dp <- load_variables(2020, "dp", cache = TRUE)
-vars_dhc <- load_variables(2020, "dhc", cache = TRUE)
-vars_ddhca <- load_variables(2020, "ddhca", cache = TRUE)
-vars_ddhcb <- load_variables(2020, "ddhcb", cache = TRUE)
-
-vars_pl |>
-  group_by(concept) |>
-  count()
-
-vars_dp |>
-  group_by(concept) |>
-  count()
-
-vars_dhc |>
-  group_by(concept) |>
-  count() |>
-  print(n = 500)
-
-vars_ddhca |>
-  group_by(concept) |>
-  count() |>
-  print(n = 500)
-
-vars_ddhcb |>
-  group_by(concept) |>
-  count() |>
-  print(n = 500)
-
-
-
-p <- paste(
-  "(?i)^hispanic\\sor\\slatino\\sorigin$",
-  "^hispanic\\sor\\slatino\\sorigin\\sby\\srace",
-  "^hispanic\\sor\\slatino\\sorigin,\\sand",
-  "^housing", "^race$", "^race.+total",
-  "^sex\\sby\\sage\\sfor\\sselected",
-  "^total\\spopulation$",
-  sep = "|"
+# debugonce(get_kc_pop)
+df <- get_kc_pop(
+  dataset = "dhc",
+  geo = "block",
+  year = 2020,
+  vars = "^P1[23]",
+  var_match = "regex",
+  key = keyring::key_get("census-api-key")
 )
-vars <- vars_dhc$name[grepl(p, vars_dhc$concept)]
-df <- vars_dhc |>
-  filter(name %in% vars)
+
+
+# 2020 census: P12 & P13 tables (Sex by Age) from DHC file?
 
 
 
-dec_dhc <- get_decennial(
-  geography = "place",
-  variables = vars,
+
+vars <- tidycensus::load_variables(2021, "acs1", cache = TRUE)
+# vars1 <- vars_dhc[grepl("^P1[23]", vars_dhc$name), ]
+
+
+
+
+dec_dhc <- tidycensus::get_decennial(
+  geography = "zcta",
+  variables = vars1$name,
   # table = "ddhca",
   year = 2020,
   sumfile = "dhc",
-  state = 29,
+  # state = 29,
+  state = sf_zcta_2020$GEOID20,
   # county = "Jackson",
   # pop_group = "all",
-  key = keyring::key_get("census-api-key"),
-  show_call = TRUE
+  key = keyring::key_get("census-api-key")
 )
-
-dec_dhc <- dec_dhc |>
-  filter(NAME == "Kansas City city, Missouri")
-
-dec_dhc <- dec_dhc |>
-  left_join(vars_dhc, by = c("variable" = "name"))
-
-
-
-
-
-
-
-
-
-
 
 
 
