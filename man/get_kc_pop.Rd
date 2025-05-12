@@ -18,8 +18,8 @@ get_kc_pop(
 \code{\link[tidycensus:load_variables]{tidycensus::load_variables()}} and either \code{survey} in \code{\link[tidycensus:get_acs]{tidycensus::get_acs()}}
 or \code{sumfile} in \code{\link[tidycensus:get_decennial]{tidycensus::get_decennial()}}.}
 
-\item{geo}{The geography of the data set to download. \code{"place"} returns the
-city data.}
+\item{geo}{The geography (summary level) of the data set to download.
+\code{"place"} is the summary level for Kansas City.}
 
 \item{year}{The year of the data set to download.}
 
@@ -37,17 +37,43 @@ expression pattern in \code{vars}.}
 A dataframe.
 }
 \description{
-Get population data for Kansas City
+Download population data for Kansas City from the decennial census or the
+American Community Survey (ACS). Summary levels are place, county, census
+tract, census block group, census block (decennial census only), and ZIP code
+tabulation area (ZCTA). Data sets are downloaded from the US Census Bureau
+using the \href{https://walker-data.com/tidycensus/index.html}{tidycensus} package.
 }
+\details{
+Data sets for geographies other than "place" are filtered for geographic
+units that intersect with the city boundary. These geographic units are
+determined by the shapefile downloaded for the specified year. If no
+shapefile has been downloaded for that year, an error is returned.
+}
+\section{Additional resources}{
+\itemize{
+\item \href{https://www.census.gov/programs-surveys/decennial-census.html}{Decennial census website}
+\item \href{https://www.census.gov/programs-surveys/acs.html}{American Community Survey website}
+\item \href{https://api.census.gov/data.html}{List of US Census Bureau data sets available via API}
+\item \href{https://censusreporter.org/}{Census Reporter} (ACS tables and variables reference)
+}
+}
+
 \examples{
 \dontrun{
-get_kc_pop(
+acs5_2023 <- get_kc_pop(
   dataset = "acs5",
   geo = "place",
   year = 2023,
   vars = "^B01",
-  var_match = "regex",
-  show_call = TRUE
+  var_match = "regex"
+)
+
+dec_2020 <- get_kc_pop(
+  dataset = "dhc",
+  geo = "block",
+  year = 2020,
+  vars = "^P1[23]",
+  var_match = "regex"
 )
 }
 
