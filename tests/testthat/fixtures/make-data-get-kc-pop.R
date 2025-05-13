@@ -7,6 +7,15 @@ pop_raw <- list()
 surv <- c("acs1", "acs5")
 year <- 2021
 
+# Test regex matching method (all others test fixed method)
+pop_raw$acs1_city_2021_regex <- get_pop_acs(list(
+  survey = "acs1",
+  geography = "place",
+  year = 2021,
+  variables = c("B01002A_001", "B01002A_002", "B01002A_003"),
+  state = 29
+))
+
 for (i in 1:length(surv)) {
   for (j in 1:length(year)) {
     if (surv[i] == "acs1") {
@@ -66,6 +75,14 @@ pop_output <- list()
 surv <- c("acs1", "acs5")
 year <- 2021
 
+pop_output$acs1_city_2021_regex <- get_kc_pop(
+  dataset = "acs1",
+  geo = "place",
+  year = 2021,
+  vars = "^B01002A",
+  var_match = "regex"
+)
+
 for (i in 1:length(surv)) {
   for (j in 1:length(year)) {
     if (surv[i] == "acs1") {
@@ -82,7 +99,7 @@ for (i in 1:length(surv)) {
         geo = geo[k],
         year = year[j],
         vars = "B01003_001",
-        var_match = "regex",
+        var_match = "fixed",
         key = keyring::key_get("census-api-key")
       )
     }
@@ -104,7 +121,7 @@ for (i in 1:length(surv)) {
         geo = geo[k],
         year = year[j],
         vars = "P12_001N",
-        var_match = "regex",
+        var_match = "fixed",
         key = keyring::key_get("census-api-key")
       )
     }

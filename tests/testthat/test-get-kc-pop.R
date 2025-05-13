@@ -1,4 +1,19 @@
-test_that("acs1 place", {
+test_that("acs1 place regex", {
+  data1 <- readRDS(test_path("fixtures", "pop_raw.rds"))
+  data2 <- readRDS(test_path("fixtures", "pop_output.rds"))
+  local_mocked_bindings(get_pop_acs = function(...) data1$acs1_city_2021_regex)
+  act <- data2$acs1_city_2021_regex
+  exp <- get_kc_pop(
+    dataset = "acs1",
+    geo = "place",
+    year = 2021,
+    vars = "^B01002A",
+    var_match = "regex"
+  )
+  expect_equal(act, exp)
+})
+
+test_that("acs1 place fixed", {
   data1 <- readRDS(test_path("fixtures", "pop_raw.rds"))
   data2 <- readRDS(test_path("fixtures", "pop_output.rds"))
   local_mocked_bindings(get_pop_acs = function(...) data1$acs1_city_2021)
@@ -8,7 +23,7 @@ test_that("acs1 place", {
     geo = "place",
     year = 2021,
     vars = "B01003_001",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -23,7 +38,7 @@ test_that("acs5 place", {
     geo = "place",
     year = 2021,
     vars = "B01003_001",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -38,7 +53,7 @@ test_that("acs5 county", {
     geo = "county",
     year = 2021,
     vars = "B01003_001",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -53,7 +68,7 @@ test_that("acs5 tract", {
     geo = "tract",
     year = 2021,
     vars = "B01003_001",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -68,7 +83,7 @@ test_that("acs5 block group", {
     geo = "block group",
     year = 2021,
     vars = "B01003_001",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -83,7 +98,7 @@ test_that("acs5 zcta", {
     geo = "zcta",
     year = 2021,
     vars = "B01003_001",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -98,7 +113,7 @@ test_that("dec place", {
     geo = "place",
     year = 2020,
     vars = "P12_001N",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -113,7 +128,7 @@ test_that("dec county", {
     geo = "county",
     year = 2020,
     vars = "P12_001N",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -128,7 +143,7 @@ test_that("dec tract", {
     geo = "tract",
     year = 2020,
     vars = "P12_001N",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -143,7 +158,7 @@ test_that("dec block group", {
     geo = "block group",
     year = 2020,
     vars = "P12_001N",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -158,7 +173,7 @@ test_that("dec block", {
     geo = "block",
     year = 2020,
     vars = "P12_001N",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
@@ -173,7 +188,7 @@ test_that("dec zcta", {
     geo = "zcta",
     year = 2020,
     vars = "P12_001N",
-    var_match = "regex"
+    var_match = "fixed"
   )
   expect_equal(act, exp)
 })
