@@ -1,4 +1,4 @@
-# sf data -----------------------------------------------------------------
+# Shapefiles --------------------------------------------------------------
 
 devtools::load_all()
 
@@ -30,7 +30,7 @@ for (i in 1:length(sf_data)) {
 saveRDS(sf_data, "data-raw/sf_2018_2024.rds")
 
 
-# geoids ------------------------------------------------------------------
+# GEOIDs ------------------------------------------------------------------
 
 geo <- c("city", "county", "tract", "blockgroup", "block", "zcta")
 
@@ -50,4 +50,3 @@ names(geoids) <- geo
 
 # Save in `data-raw/`
 saveRDS(geoids, "data-raw/geoids.rds")
-# usethis::use_data(geoids, overwrite = T)

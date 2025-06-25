@@ -1,78 +1,78 @@
 test_that("place", {
-  data1 <- readRDS(test_path("fixtures", "sf_raw.rds"))
-  data2 <- readRDS(test_path("fixtures", "sf_output.rds"))
-  local_mocked_bindings(get_raw_sf1 = function(...) data1$sf_city_2020)
-  act <- data2$sf_city_2020
-  exp <- get_kc_sf(geo = "place", year = 2020)
+  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
+  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
+  local_mocked_bindings(get_raw_sf1 = function(...) sf_in$place)
+  act <- get_kc_sf(geo = "place", year = 2020)
+  exp <- sf_out$place
   expect_equal(act, exp)
 })
 
 test_that("county", {
-  data1 <- readRDS(test_path("fixtures", "sf_raw.rds"))
-  data2 <- readRDS(test_path("fixtures", "sf_output.rds"))
+  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
+  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
   local_mocked_bindings(
-    get_raw_sf1 = function(...) data1$sf_city_2020,
-    get_raw_sf2 = function(...) data1$sf_county_2020
+    get_raw_sf1 = function(...) sf_in$place,
+    get_raw_sf2 = function(...) sf_in$county
   )
-  act <- data2$sf_county_2020
-  exp <- suppressWarnings(
+  act <- suppressWarnings(
     get_kc_sf(geo = "county", year = 2020)
   )
+  exp <- sf_out$county
   expect_equal(act, exp)
 })
 
 test_that("tract", {
-  data1 <- readRDS(test_path("fixtures", "sf_raw.rds"))
-  data2 <- readRDS(test_path("fixtures", "sf_output.rds"))
+  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
+  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
   local_mocked_bindings(
-    get_raw_sf1 = function(...) data1$sf_city_2020,
-    get_raw_sf2 = function(...) data1$sf_tract_2020
+    get_raw_sf1 = function(...) sf_in$place,
+    get_raw_sf2 = function(...) sf_in$tract
   )
-  act <- data2$sf_tract_2020
-  exp <- suppressWarnings(
+  act <- suppressWarnings(
     get_kc_sf(geo = "tract", year = 2020)
   )
+  exp <- sf_out$tract
   expect_equal(act, exp)
 })
 
 test_that("block group", {
-  data1 <- readRDS(test_path("fixtures", "sf_raw.rds"))
-  data2 <- readRDS(test_path("fixtures", "sf_output.rds"))
+  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
+  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
   local_mocked_bindings(
-    get_raw_sf1 = function(...) data1$sf_city_2020,
-    get_raw_sf2 = function(...) data1$sf_blockgroup_2020
+    get_raw_sf1 = function(...) sf_in$place,
+    get_raw_sf2 = function(...) sf_in$blockgroup
   )
-  act <- data2$sf_blockgroup_2020
-  exp <- suppressWarnings(
+  act <- suppressWarnings(
     get_kc_sf(geo = "block group", year = 2020)
   )
+  exp <- sf_out$blockgroup
   expect_equal(act, exp)
 })
 
 test_that("block", {
-  data1 <- readRDS(test_path("fixtures", "sf_raw.rds"))
-  data2 <- readRDS(test_path("fixtures", "sf_output.rds"))
+  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
+  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
   local_mocked_bindings(
-    get_raw_sf1 = function(...) data1$sf_city_2020,
-    get_raw_sf2 = function(...) data1$sf_block_2020
+    get_raw_sf1 = function(...) sf_in$place,
+    get_raw_sf2 = function(...) sf_in$block
   )
-  act <- data2$sf_block_2020
-  exp <- suppressMessages(suppressWarnings(
+  act <- suppressMessages(suppressWarnings(
     get_kc_sf(geo = "block", year = 2020)
   ))
+  exp <- sf_out$block
   expect_equal(act, exp)
 })
 
 test_that("zcta", {
-  data1 <- readRDS(test_path("fixtures", "sf_raw.rds"))
-  data2 <- readRDS(test_path("fixtures", "sf_output.rds"))
+  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
+  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
   local_mocked_bindings(
-    get_raw_sf1 = function(...) data1$sf_city_2020,
-    get_raw_sf2 = function(...) data1$sf_zcta_2020
+    get_raw_sf1 = function(...) sf_in$place,
+    get_raw_sf2 = function(...) sf_in$zcta
   )
-  act <- data2$sf_zcta_2020
-  exp <- suppressMessages(suppressWarnings(
+  act <- suppressMessages(suppressWarnings(
     get_kc_sf(geo = "zcta", year = 2020)
   ))
+  exp <- sf_out$zcta
   expect_equal(act, exp)
 })

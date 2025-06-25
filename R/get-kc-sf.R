@@ -41,7 +41,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_kc_sf(2024, "tract")
+#' get_kc_sf("tract", 2024)
 #' }
 #'
 get_kc_sf <- function(
@@ -53,24 +53,25 @@ get_kc_sf <- function(
   geo <- match.arg(geo)
 
   # Download the Missouri shapefile
-  pl <- tryCatch(
+  sf1 <- tryCatch(
     get_raw_sf1(year),
     error = function(e) {
       cat("tigris error:", conditionMessage(e), "\n")
       NULL
     }
   )
-  if (is.null(pl)) return(pl)
+
+  if (is.null(sf1)) return(sf1)
 
   # Filter for the city boundary
-  pl <- pl[which(pl$NAME == "Kansas City"), ]
+  sf1 <- sf1[which(sf1$NAME == "Kansas City"), ]
 
   # Return the city boundary or download the shapefile for the specified
   # geography
   if (geo == "place") {
-    pl
+    sf1
   } else {
-    alt <- tryCatch(
+    sf2 <- tryCatch(
       get_raw_sf2(geo, year),
       error = function(e) {
         cat("tigris error:", conditionMessage(e), "\n")
@@ -78,37 +79,35 @@ get_kc_sf <- function(
       }
     )
 
-    if (is.null(alt)) return(alt)
+    if (is.null(sf2)) return(sf2)
 
-    cols <- colnames(alt)
+    cols <- colnames(sf2)
 
-    # Get the area of the full geographic unit
-    alt$area <- sf::st_area(alt)
+    # Get the area of each geometry
+    sf2$area <- sf::st_area(sf2)
 
-    # Restrict each unit to the portion within the city
-    alt <- sf::st_intersection(pl[, "geometry"], alt)
+    # Restrict each geometry to the area within the city
+    sf2 <- sf::st_intersection(sf1[, "geometry"], sf2)
 
-    # Check validity of geometry
-    valid <- sf::st_is_valid(alt)
+    # Keep only polygons
+    sf2 <- sf::st_collection_extract(sf2, "POLYGON")
 
-    if (!all(valid)) {
-      alt <- sf::st_make_valid(alt)
-      message("Invalid geometry found in source data")
-    }
+    sf2 <- sf::st_make_valid(sf2)
+
+    sf2 <- sf2[!sf::st_is_empty(sf2), ]
 
     # Get the area of the intersecting portion
-    alt$kc_area <- sf::st_area(alt)
-
-    # Remove geometries with area of 0
-    if (any(as.numeric(alt$kc_area) == 0)) {
-      alt <- alt[as.numeric(alt$kc_area) != 0, ]
-      message("Geometries with area of 0 removed")
-    }
+    sf2$kc_area <- sf::st_area(sf2)
 
     # Calculate the percentage of the area within the city
-    alt$kc_area_pct <- as.numeric(alt$kc_area * 100 / alt$area)
+    sf2$kc_area_pct <- as.numeric(sf2$kc_area * 100 / sf2$area)
 
-    alt[, c(cols, "area", "kc_area", "kc_area_pct")]
+    cols <- c(
+      cols[!cols %in% "geometry"],
+      "area", "kc_area", "kc_area_pct", "geometry"
+    )
+
+    sf2[, cols]
   }
 }
 
@@ -128,13 +127,5 @@ get_raw_sf2 <- function(geo, year) {
     tigris::blocks(state = 29, county = counties, year = year)
   } else if (geo == "zcta") {
     tigris::zctas(starts_with = 64, year = year)
-  }
-}
-
-get_raw_sf <- function(geo, year) {
-  if (geo == "place") {
-    get_raw_sf1(year)
-  } else {
-    get_raw_sf2(geo, year)
   }
 }

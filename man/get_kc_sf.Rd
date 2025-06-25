@@ -49,7 +49,7 @@ Area is calculated by \code{\link[sf:geos_measures]{sf::st_area()}}.
 
 \examples{
 \dontrun{
-get_kc_sf(2024, "tract")
+get_kc_sf("tract", 2024)
 }
 
 }
