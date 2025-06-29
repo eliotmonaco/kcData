@@ -1,6 +1,6 @@
 library(openxlsx2)
 
-sf_data <- readRDS("data-raw/sf_2018_2024.rds")
+sf_data <- readRDS("data-raw/data_sf_2018_2024.rds")
 
 geo <- c("city", "county", "tract", "block group", "block", "zcta")
 
@@ -19,4 +19,4 @@ for (i in 1:length(ls)) {
     wb_add_data(x = ls[[i]])
 }
 
-wb_save(wb, "data-raw/sf_colnames.xlsx")
+wb_save(wb, "data-raw/sf-colnames.xlsx")

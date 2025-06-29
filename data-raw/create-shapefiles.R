@@ -27,7 +27,7 @@ for (i in 1:length(sf_data)) {
 }
 
 # Save in `data-raw/`
-saveRDS(sf_data, "data-raw/sf_2018_2024.rds")
+saveRDS(sf_data, "data-raw/data_sf_2018_2024.rds")
 
 
 # GEOIDs ------------------------------------------------------------------
