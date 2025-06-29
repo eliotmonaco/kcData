@@ -37,6 +37,8 @@
 #' @param var_match The type of matching to perform on variable names. `"fixed"`
 #' matches the values in `vars` exactly, and `"regex"` matches to a regular
 #' expression pattern in `vars`.
+#' @param geoid An optional vector of GEOIDs to supply if the relevant spatial
+#' data sets are unavailable in kcData.
 #' @param ... Additional arguments passed to [tidycensus::get_acs()] or
 #' [tidycensus::get_decennial()].
 #'
@@ -68,6 +70,7 @@ get_kc_pop <- function(
     year,
     vars,
     var_match = c("fixed", "regex"),
+    geoid = NULL,
     ...) {
   requireNamespace("tidycensus")
 
@@ -80,7 +83,7 @@ get_kc_pop <- function(
   if (g %in% c("city", "county")) {
     id <- kcData::geoids[[g]]
   } else if (g %in% c("tract", "blockgroup")) {
-    if (year %in% 2010:2019) {
+    if (year %in% 2010:2019) { # get census year
       cy <- 2010
     } else if (year %in% 2020:2029) {
       cy <- 2020
@@ -94,12 +97,17 @@ get_kc_pop <- function(
     id <- kcData::geoids[[g]][[nm]]
   }
 
-  if (is.null(id)) {
+  if (is.null(id) & is.null(geoid)) {
     m <- paste(
       "GEOIDs for", geo, "in", year,
-      "are unavailable because the shapefiles are not in kcData"
+      "are unavailable because the shapefiles are not in kcData.",
+      "GEOIDs can be added via the `geoid` argument."
     )
     stop(m)
+  }
+
+  if (is.null(id) & !is.null(geoid)) {
+    id <- geoid
   }
 
   # Get variable table

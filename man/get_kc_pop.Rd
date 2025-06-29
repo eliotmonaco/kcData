@@ -10,6 +10,7 @@ get_kc_pop(
   year,
   vars,
   var_match = c("fixed", "regex"),
+  geoid = NULL,
   ...
 )
 }
@@ -28,6 +29,9 @@ variable names for download.}
 \item{var_match}{The type of matching to perform on variable names. \code{"fixed"}
 matches the values in \code{vars} exactly, and \code{"regex"} matches to a regular
 expression pattern in \code{vars}.}
+
+\item{geoid}{An optional vector of GEOIDs to supply if the relevant spatial
+data sets are unavailable in kcData.}
 
 \item{...}{Additional arguments passed to \code{\link[tidycensus:get_acs]{tidycensus::get_acs()}} or
 \code{\link[tidycensus:get_decennial]{tidycensus::get_decennial()}}.}

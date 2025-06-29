@@ -202,7 +202,10 @@ test_that("no GEOIDs error: tract", {
       vars = "B01003_001",
       var_match = "fixed"
     ),
-    "GEOIDs for tract in 2030 are unavailable because the shapefiles are not in kcData"
+    paste(
+      "GEOIDs for tract in 2030 are unavailable because the shapefiles are not",
+      "in kcData. GEOIDs can be added via the `geoid` argument."
+    )
   )
 })
 
@@ -215,6 +218,9 @@ test_that("no GEOIDs error: zcta", {
       vars = "B01003_001",
       var_match = "fixed"
     ),
-    "GEOIDs for zcta in 2012 are unavailable because the shapefiles are not in kcData"
+    paste(
+      "GEOIDs for zcta in 2012 are unavailable because the shapefiles are not",
+      "in kcData. GEOIDs can be added via the `geoid` argument."
+    )
   )
 })
