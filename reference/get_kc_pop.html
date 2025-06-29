@@ -15,7 +15,7 @@ using the tidycensus package."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">kcData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,8 +70,7 @@ or <code>sumfile</code> in <code><a href="https://walker-data.com/tidycensus/ref
 
 
 <dt id="arg-geo">geo<a class="anchor" aria-label="anchor" href="#arg-geo"></a></dt>
-<dd><p>The geography (summary level) of the data set to download.
-<code>"place"</code> is the summary level for Kansas City.</p></dd>
+<dd><p>The geography (summary level) of the data set to download.</p></dd>
 
 
 <dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
@@ -101,9 +100,9 @@ expression pattern in <code>vars</code>.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Data sets for geographies other than "place" are filtered for geographic
-units that intersect with the city boundary. These geographic units are
-determined by the shapefile downloaded for the specified year. If no
-shapefile has been downloaded for that year, an error is returned.</p>
+units that intersect with Kansas City. These geographic units are determined
+by the shapefile downloaded for the specified year. If no shapefile has been
+downloaded for that year, an error is returned.</p>
     </div>
     <div class="section level2">
     <h2 id="additional-resources">Additional resources<a class="anchor" aria-label="anchor" href="#additional-resources"></a></h2>
@@ -129,8 +128,8 @@ shapefile has been downloaded for that year, an error is returned.</p>
 <span class="r-in"><span>  dataset <span class="op">=</span> <span class="st">"dhc"</span>,</span></span>
 <span class="r-in"><span>  geo <span class="op">=</span> <span class="st">"block"</span>,</span></span>
 <span class="r-in"><span>  year <span class="op">=</span> <span class="fl">2020</span>,</span></span>
-<span class="r-in"><span>  vars <span class="op">=</span> <span class="st">"^P1[23]"</span>,</span></span>
-<span class="r-in"><span>  var_match <span class="op">=</span> <span class="st">"regex"</span></span></span>
+<span class="r-in"><span>  vars <span class="op">=</span> <span class="st">"P12_001N"</span>,</span></span>
+<span class="r-in"><span>  var_match <span class="op">=</span> <span class="st">"fixed"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
