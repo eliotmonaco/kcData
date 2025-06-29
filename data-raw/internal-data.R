@@ -1,7 +1,7 @@
-geoids <- readRDS("data-raw/geoids.rds")
+SOMEDATA <- readRDS("data-raw/SOMEDATA.rds")
 
 usethis::use_data(
-  geoids,
+  SOMEDATA,
   internal = TRUE,
   overwrite = TRUE
 )

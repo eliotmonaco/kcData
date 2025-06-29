@@ -32,7 +32,7 @@ saveRDS(sf_data, "data-raw/sf_2018_2024.rds")
 
 # GEOIDs ------------------------------------------------------------------
 
-geo <- c("city", "county", "tract", "blockgroup", "block", "zcta")
+geo <- c("city", "county", "tract", "block group", "block", "zcta")
 
 geoids <- lapply(geo, \(x) {
   ls <- lapply(
@@ -42,11 +42,27 @@ geoids <- lapply(geo, \(x) {
       sort(y[[col]])
     }
   )
-  names(ls) <- sub("sf_.*_", "ids_", names(ls))
+  names(ls) <- sub("sf_.*_", "ids", names(ls))
   ls
 })
 
 names(geoids) <- geo
 
-# Save in `data-raw/`
-saveRDS(geoids, "data-raw/geoids.rds")
+geoids <- lapply(geoids, \(x) {
+  c1 <- setmeup::batch_compare(lapply(x, \(y) sort(unlist(y))))
+  c2a <- setmeup::batch_compare(lapply(x[grepl("201", names(x))], \(y) sort(unlist(y))))
+  c2b <- setmeup::batch_compare(lapply(x[grepl("202", names(x))], \(y) sort(unlist(y))))
+  if (all(c1)) {
+    unique(unlist(x))
+  } else if (all(c2a) & all(c2b)) {
+    list(
+      ids2010 = unique(unlist(x[grepl("201", names(x))])),
+      ids2020 = unique(unlist(x[grepl("202", names(x))]))
+    )
+  } else {
+    x
+  }
+})
+
+# Save data for export
+usethis::use_data(geoids, overwrite = T)

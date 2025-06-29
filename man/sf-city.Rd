@@ -138,7 +138,7 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 1
 An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
 }
 \source{
-US Census Bureau TIGER/Line Shapefiles (2018-2024)
+US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
 sf_city_2018

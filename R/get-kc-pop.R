@@ -11,9 +11,9 @@
 #'
 #' @details
 #' Data sets for geographies other than "place" are filtered for geographic
-#' units that intersect with the city boundary. These geographic units are
-#' determined by the shapefile downloaded for the specified year. If no
-#' shapefile has been downloaded for that year, an error is returned.
+#' units that intersect with Kansas City. These geographic units are determined
+#' by the shapefile downloaded for the specified year. If no shapefile has been
+#' downloaded for that year, an error is returned.
 #'
 #' # Additional resources
 #'
@@ -31,7 +31,6 @@
 #' [tidycensus::load_variables()] and either `survey` in [tidycensus::get_acs()]
 #' or `sumfile` in [tidycensus::get_decennial()].
 #' @param geo The geography (summary level) of the data set to download.
-#' `"place"` is the summary level for Kansas City.
 #' @param year The year of the data set to download.
 #' @param vars A vector of variable names or a regular expression to match
 #' variable names for download.
@@ -58,8 +57,8 @@
 #'   dataset = "dhc",
 #'   geo = "block",
 #'   year = 2020,
-#'   vars = "^P1[23]",
-#'   var_match = "regex"
+#'   vars = "P12_001N",
+#'   var_match = "fixed"
 #' )
 #' }
 #'
@@ -75,19 +74,32 @@ get_kc_pop <- function(
   geo <- match.arg(geo)
   var_match <- match.arg(var_match)
 
-  # Get GEOIDs from the shapefile for the specified year to filter data
-  if (geo == "place") {
-    id <- "2938000"
-  } else {
-    geo_nm <- paste0("^", sub("\\s", "", geo), "$")
-    id <- geoids[[which(grepl(geo_nm, names(geoids)))]]
-    i <- which(grepl(year, names(id)))
+  # Get GEOIDs for the given `geo` & `year` to filter data
+  g <- ifelse(geo == "place", "city", sub("\\s", "", geo))
 
-    if (length(i) == 0) {
-      stop(paste(geo, "shapefiles for", year, "have not been downloaded"))
+  if (g %in% c("city", "county")) {
+    id <- kcData::geoids[[g]]
+  } else if (g %in% c("tract", "blockgroup")) {
+    if (year %in% 2010:2019) {
+      cy <- 2010
+    } else if (year %in% 2020:2029) {
+      cy <- 2020
+    } else {
+      cy <- NULL
     }
+    nm <- paste0("ids", cy)
+    id <- kcData::geoids[[g]][[nm]]
+  } else if (g %in% c("block", "zcta")) {
+    nm <- paste0("ids", year)
+    id <- kcData::geoids[[g]][[nm]]
+  }
 
-    id <- id[[i]]
+  if (is.null(id)) {
+    m <- paste(
+      "GEOIDs for", geo, "in", year,
+      "are unavailable because the shapefiles are not in kcData"
+    )
+    stop(m)
   }
 
   # Get variable table
@@ -158,7 +170,7 @@ get_kc_pop <- function(
 
     if (geo == "block") {
       # Add `county` argument to `args`
-      args <- append(args, list(county = c(037, 047, 095, 165)))
+      args <- append(args, list(county = c("037", "047", "095", "165")))
     }
 
     # Get decennial census data

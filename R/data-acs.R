@@ -8,9 +8,8 @@
 #' ZIP code tabulation area (ZCTA).
 #'
 #' Data sets were downloaded from [data.census.gov][cen] using the
-#' [tidycensus][tc] package. All data variables from the full and collapsed Age
-#' and Sex, Race, and Hispanic Origin tables are included (i.e., tables
-#' beginning with B01, B02, B03, C01, C02, and C03).
+#' [tidycensus][tc] package. Variables from the Age and Sex tables (starting
+#' with "B01") downloaded only.
 #'
 #' See [Guidance for Data Users][gdu] for information on how to use ACS data.
 #'
@@ -73,7 +72,7 @@
 #' }
 #'
 #' @source US Census Bureau American Community Survey 1-Year and 5-Year data
-#' sets (2018-2023)
+#' sets
 #'
 #' @name acs
 #' @keywords datasets

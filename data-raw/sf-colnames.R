@@ -2,7 +2,7 @@ library(openxlsx2)
 
 sf_data <- readRDS("data-raw/sf_2018_2024.rds")
 
-geo <- c("city", "county", "tract", "blockgroup", "block", "zcta")
+geo <- c("city", "county", "tract", "block group", "block", "zcta")
 
 ls <- lapply(geo, \(x) {
   p <- paste0("_", x, "_")

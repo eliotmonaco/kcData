@@ -18,8 +18,7 @@ get_kc_pop(
 \code{\link[tidycensus:load_variables]{tidycensus::load_variables()}} and either \code{survey} in \code{\link[tidycensus:get_acs]{tidycensus::get_acs()}}
 or \code{sumfile} in \code{\link[tidycensus:get_decennial]{tidycensus::get_decennial()}}.}
 
-\item{geo}{The geography (summary level) of the data set to download.
-\code{"place"} is the summary level for Kansas City.}
+\item{geo}{The geography (summary level) of the data set to download.}
 
 \item{year}{The year of the data set to download.}
 
@@ -45,9 +44,9 @@ using the \href{https://walker-data.com/tidycensus/index.html}{tidycensus} packa
 }
 \details{
 Data sets for geographies other than "place" are filtered for geographic
-units that intersect with the city boundary. These geographic units are
-determined by the shapefile downloaded for the specified year. If no
-shapefile has been downloaded for that year, an error is returned.
+units that intersect with Kansas City. These geographic units are determined
+by the shapefile downloaded for the specified year. If no shapefile has been
+downloaded for that year, an error is returned.
 }
 \section{Additional resources}{
 \itemize{
@@ -72,8 +71,8 @@ dec_2020 <- get_kc_pop(
   dataset = "dhc",
   geo = "block",
   year = 2020,
-  vars = "^P1[23]",
-  var_match = "regex"
+  vars = "P12_001N",
+  var_match = "fixed"
 )
 }
 

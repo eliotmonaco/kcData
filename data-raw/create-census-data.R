@@ -5,8 +5,8 @@ df <- get_kc_pop(
   dataset = "dhc",
   geo = "block",
   year = 2020,
-  vars = "^P1[23]",
-  var_match = "regex",
+  vars = "P12_001N",
+  var_match = "fixed",
   key = keyring::key_get("census-api-key")
 )
 
@@ -16,9 +16,25 @@ df <- get_kc_pop(
 
 
 
-vars <- tidycensus::load_variables(2021, "acs1", cache = TRUE)
-# vars1 <- vars_dhc[grepl("^P1[23]", vars_dhc$name), ]
+vars10 <- tidycensus::load_variables(2010, "sf1", cache = TRUE)
 
+vars10 |>
+  filter(grepl("^SEX BY AGE", concept)) |>
+  count(concept)
+
+df <- vars10 |>
+  filter(grepl("^SEX BY AGE$", concept))
+
+
+
+vars20 <- tidycensus::load_variables(2020, "dhc", cache = TRUE)
+
+df <- vars20 |>
+  filter(grepl("^SEX BY AGE", concept)) |>
+  count(concept)
+
+df <- vars20 |>
+  filter(grepl("^SEX BY AGE FOR SELECTED AGE CATEGORIES$", concept))
 
 
 

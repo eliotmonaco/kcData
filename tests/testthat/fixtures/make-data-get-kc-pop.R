@@ -3,12 +3,12 @@
 devtools::load_all()
 
 # Create raw data
-pop_raw <- list()
+pop_input <- list()
 surv <- c("acs1", "acs5")
 year <- 2021
 
 # Test regex matching method (all others test fixed method)
-pop_raw$acs1_city_2021_regex <- get_pop_acs(list(
+pop_input$acs1_city_2021_regex <- get_pop_acs(list(
   survey = "acs1",
   geography = "place",
   year = 2021,
@@ -39,7 +39,7 @@ for (i in 1:length(surv)) {
         args <- append(args, list(zcta = geoids$zcta$ids_2021))
         args <- args[!grepl("state", names(args))]
       }
-      pop_raw[[nm]] <- get_pop_acs(args)
+      pop_input[[nm]] <- get_pop_acs(args)
     }
   }
 }
@@ -65,7 +65,7 @@ for (i in 1:length(surv)) {
       if (geo[k] == "block") {
         args <- append(args, list(county = c(037, 047, 095, 165)))
       }
-      pop_raw[[nm]] <- get_pop_dec(args)
+      pop_input[[nm]] <- get_pop_dec(args)
     }
   }
 }
@@ -128,5 +128,5 @@ for (i in 1:length(surv)) {
   }
 }
 
-saveRDS(pop_raw, "tests/testthat/fixtures/pop_raw.rds")
+saveRDS(pop_input, "tests/testthat/fixtures/pop_input.rds")
 saveRDS(pop_output, "tests/testthat/fixtures/pop_output.rds")

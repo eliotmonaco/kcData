@@ -98,7 +98,7 @@
 #'   }
 #' }
 #'
-#' @source US Census Bureau TIGER/Line Shapefiles (2018-2024)
+#' @source US Census Bureau TIGER/Line Shapefiles
 #'
 #' @name sf-zcta
 #' @keywords datasets

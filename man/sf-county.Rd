@@ -27,7 +27,7 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 2
 An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 22 columns.
 }
 \source{
-US Census Bureau TIGER/Line Shapefiles (2018-2024)
+US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
 sf_county_2018

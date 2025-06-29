@@ -93,15 +93,13 @@ underscore)
 }
 }
 
-An object of class \code{data.frame} with 359 rows and 7 columns.
+An object of class \code{data.frame} with 294 rows and 7 columns.
 
-An object of class \code{data.frame} with 359 rows and 7 columns.
+An object of class \code{data.frame} with 294 rows and 7 columns.
 
-An object of class \code{data.frame} with 359 rows and 7 columns.
+An object of class \code{data.frame} with 294 rows and 7 columns.
 
-An object of class \code{data.frame} with 359 rows and 7 columns.
-
-An object of class \code{data.frame} with 359 rows and 8 columns.
+An object of class \code{data.frame} with 296 rows and 7 columns.
 
 An object of class \code{data.frame} with 359 rows and 8 columns.
 
@@ -113,7 +111,9 @@ An object of class \code{data.frame} with 359 rows and 8 columns.
 
 An object of class \code{data.frame} with 359 rows and 8 columns.
 
-An object of class \code{data.frame} with 1436 rows and 8 columns.
+An object of class \code{data.frame} with 359 rows and 8 columns.
+
+An object of class \code{data.frame} with 1434 rows and 8 columns.
 
 An object of class \code{data.frame} with 1436 rows and 8 columns.
 
@@ -125,45 +125,45 @@ An object of class \code{data.frame} with 1436 rows and 8 columns.
 
 An object of class \code{data.frame} with 1436 rows and 8 columns.
 
-An object of class \code{data.frame} with 60312 rows and 8 columns.
+An object of class \code{data.frame} with 58559 rows and 8 columns.
 
-An object of class \code{data.frame} with 60312 rows and 8 columns.
+An object of class \code{data.frame} with 58544 rows and 8 columns.
 
-An object of class \code{data.frame} with 66415 rows and 8 columns.
+An object of class \code{data.frame} with 64350 rows and 8 columns.
 
-An object of class \code{data.frame} with 66415 rows and 8 columns.
+An object of class \code{data.frame} with 64446 rows and 8 columns.
 
-An object of class \code{data.frame} with 66415 rows and 8 columns.
+An object of class \code{data.frame} with 64532 rows and 8 columns.
 
-An object of class \code{data.frame} with 66415 rows and 8 columns.
+An object of class \code{data.frame} with 64591 rows and 8 columns.
 
-An object of class \code{data.frame} with 161909 rows and 8 columns.
+An object of class \code{data.frame} with 29067 rows and 8 columns.
 
-An object of class \code{data.frame} with 161909 rows and 8 columns.
+An object of class \code{data.frame} with 29079 rows and 8 columns.
 
-An object of class \code{data.frame} with 183090 rows and 8 columns.
+An object of class \code{data.frame} with 32543 rows and 8 columns.
 
-An object of class \code{data.frame} with 183090 rows and 8 columns.
+An object of class \code{data.frame} with 32689 rows and 8 columns.
 
-An object of class \code{data.frame} with 183090 rows and 8 columns.
+An object of class \code{data.frame} with 32822 rows and 8 columns.
 
-An object of class \code{data.frame} with 183090 rows and 8 columns.
+An object of class \code{data.frame} with 32850 rows and 8 columns.
 
-An object of class \code{data.frame} with 22258 rows and 8 columns.
+An object of class \code{data.frame} with 21740 rows and 8 columns.
 
-An object of class \code{data.frame} with 22258 rows and 8 columns.
+An object of class \code{data.frame} with 21741 rows and 8 columns.
 
-An object of class \code{data.frame} with 21181 rows and 8 columns.
+An object of class \code{data.frame} with 20708 rows and 8 columns.
 
-An object of class \code{data.frame} with 21181 rows and 8 columns.
+An object of class \code{data.frame} with 20711 rows and 8 columns.
 
-An object of class \code{data.frame} with 21181 rows and 8 columns.
+An object of class \code{data.frame} with 20725 rows and 8 columns.
 
-An object of class \code{data.frame} with 21540 rows and 8 columns.
+An object of class \code{data.frame} with 21086 rows and 8 columns.
 }
 \source{
 US Census Bureau American Community Survey 1-Year and 5-Year data
-sets (2018-2023)
+sets
 }
 \usage{
 acs1_city_2018
@@ -244,9 +244,8 @@ summary levels include city, county, census tract, census block group, and
 ZIP code tabulation area (ZCTA).
 
 Data sets were downloaded from \href{https://data.census.gov/}{data.census.gov} using the
-\href{https://walker-data.com/tidycensus/index.html}{tidycensus} package. All data variables from the full and collapsed Age
-and Sex, Race, and Hispanic Origin tables are included (i.e., tables
-beginning with B01, B02, B03, C01, C02, and C03).
+\href{https://walker-data.com/tidycensus/index.html}{tidycensus} package. Variables from the Age and Sex tables (starting
+with "B01") downloaded only.
 
 See \href{https://www.census.gov/programs-surveys/acs/guidance.html}{Guidance for Data Users} for information on how to use ACS data.
 }

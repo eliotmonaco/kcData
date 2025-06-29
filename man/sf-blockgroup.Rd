@@ -27,7 +27,7 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 510 rows and
 An object of class \code{sf} (inherits from \code{data.frame}) with 510 rows and 17 columns.
 }
 \source{
-US Census Bureau TIGER/Line Shapefiles (2018-2024)
+US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
 sf_blockgroup_2018

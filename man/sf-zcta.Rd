@@ -113,7 +113,7 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 60 rows and 
 An object of class \code{sf} (inherits from \code{data.frame}) with 60 rows and 14 columns.
 }
 \source{
-US Census Bureau TIGER/Line Shapefiles (2018-2024)
+US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
 sf_zcta_2018
