@@ -10,12 +10,13 @@
 coverage](https://codecov.io/gh/eliotmonaco/kcData/graph/badge.svg)](https://app.codecov.io/gh/eliotmonaco/kcData)
 <!-- badges: end -->
 
-The goal of kcData is to …
+kcData simplifies downloading and using US Census Bureau data for Kansas
+City.
 
 ## Installation
 
-You can install the development version of kcData like so:
+Install from GitHub:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+remotes::install_github("eliotmonaco/kcData")
 ```
