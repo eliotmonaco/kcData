@@ -7,14 +7,10 @@
 #' summary levels include city, county, census tract, census block group, and
 #' ZIP code tabulation area (ZCTA).
 #'
-#' Data sets were downloaded from [data.census.gov][cen] using the
-#' [tidycensus][tc] package. Variables from the Age and Sex tables (starting
-#' with "B01") downloaded only.
-#'
+#' Data sets were downloaded from [data.census.gov][cen] using `get_kc_pop()`.
 #' See [Guidance for Data Users][gdu] for information on how to use ACS data.
 #'
 #' [cen]:https://data.census.gov/
-#' [tc]:https://walker-data.com/tidycensus/index.html
 #' [gdu]:https://www.census.gov/programs-surveys/acs/guidance.html
 #'
 #' @format

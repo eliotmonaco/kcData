@@ -193,19 +193,28 @@ get_kc_pop <- function(
     if (is.null(df)) return(NULL)
 
     # Filter data by GEOID
+    if (geo == "zcta" & as.numeric(year) == 2010) {
+      id <- paste0("29", id)
+    }
+
     df <- df[df$GEOID %in% id, ]
   }
 
   # Join variable details from `vtbl`
   df$row_order <- 1:nrow(df)
+
   df <- merge(df, vtbl, by = "variable")
+
   cols <- colnames(vtbl)[2:ncol(vtbl)]
+
   if (grepl("acs", dataset)) {
     cols <- c("GEOID", "NAME", "variable", "estimate", "moe", cols)
   } else {
     cols <- c("GEOID", "NAME", "variable", "value", cols)
   }
+
   df <- df[order(df$row_order), cols]
+
   rownames(df) <- NULL
 
   df

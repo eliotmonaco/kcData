@@ -1,6 +1,7 @@
 library(tidyverse)
 devtools::load_all()
 
+# Get ACS data
 acs_data <- list()
 srvy <- c("acs1", "acs5")
 year <- 2018:2023
@@ -12,10 +13,12 @@ for (i in 1:length(srvy)) {
     } else if (srvy[i] == "acs5") {
       geo <- c("place", "county", "tract", "block group", "zcta")
     }
+
     for (k in 1:length(geo)) {
       geo_nm <- sub("\\s", "", geo[k])
       geo_nm <- sub("place", "city", geo_nm)
       nm <- paste(srvy[i], geo_nm, year[j], sep = "_")
+
       acs_data[[nm]] <- get_kc_pop(
         dataset = srvy[i],
         geo = geo[k],
@@ -28,6 +31,7 @@ for (i in 1:length(srvy)) {
   }
 }
 
+# Filter out rows with no data
 acs_data <- lapply(acs_data, \(x) filter(x, !is.na(estimate)))
 
 # Save in `data/`

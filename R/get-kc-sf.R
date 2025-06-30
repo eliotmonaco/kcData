@@ -64,7 +64,7 @@ get_kc_sf <- function(
   if (is.null(sf1)) return(sf1)
 
   # Filter for the city boundary
-  sf1 <- sf1[which(sf1$NAME == "Kansas City"), ]
+  sf1 <- sf1[which(sf1$PLACEFP == "38000"), ]
 
   # Return the city boundary or download the shapefile for the specified
   # geography
@@ -112,11 +112,16 @@ get_kc_sf <- function(
 }
 
 get_raw_sf1 <- function(year) {
-  tigris::places(state = 29, year = year)
+  if (as.numeric(year) == 2010) {
+    url <- "https://www2.census.gov/geo/tiger/TIGER2010/PLACE/2010/tl_2010_29_place10.zip"
+    tigris:::load_tiger(url = url, tigris_type = "place")
+  } else {
+    tigris::places(state = 29, year = year)
+  }
 }
 
 get_raw_sf2 <- function(geo, year) {
-  counties <- c(037, 047, 095, 165) # Cass, Clay, Jackson, & Platte
+  counties <- c("037", "047", "095", "165") # Cass, Clay, Jackson, & Platte
   if (geo == "county") {
     tigris::counties(state = 29, year = year)
   } else if (geo == "tract") {

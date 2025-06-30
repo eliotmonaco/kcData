@@ -243,10 +243,7 @@ data sets, the summary level is Kansas City only. For 5-year ACS data sets,
 summary levels include city, county, census tract, census block group, and
 ZIP code tabulation area (ZCTA).
 
-Data sets were downloaded from \href{https://data.census.gov/}{data.census.gov} using the
-\href{https://walker-data.com/tidycensus/index.html}{tidycensus} package. Variables from the Age and Sex tables (starting
-with "B01") downloaded only.
-
+Data sets were downloaded from \href{https://data.census.gov/}{data.census.gov} using \code{get_kc_pop()}.
 See \href{https://www.census.gov/programs-surveys/acs/guidance.html}{Guidance for Data Users} for information on how to use ACS data.
 }
 \examples{
