@@ -15,6 +15,7 @@
 \alias{sf_tract_2024}
 \title{Census tract shapefiles}
 \format{
+Not all variables are present in all years.
 \describe{
 \item{STATEFP}{
 \itemize{
@@ -44,7 +45,6 @@
 \itemize{
 \item Fully qualified GEOID
 \item Data type: character
-\item 2023 table only
 }
 }
 \item{NAME}{
@@ -61,7 +61,7 @@
 }
 \item{MTFCC}{
 \itemize{
-\item MAF/TIGER Feature Class Code
+\item MAF/TIGER feature class code
 \item Data type: character
 }
 }
@@ -95,12 +95,6 @@
 \item Data type: character
 }
 }
-\item{geometry}{
-\itemize{
-\item Feature geometry
-\item Data type: list
-}
-}
 \item{area}{
 \itemize{
 \item Feature area
@@ -117,6 +111,12 @@
 \itemize{
 \item Percentage of feature area within Kansas City boundary
 \item Data type: double
+}
+}
+\item{geometry}{
+\itemize{
+\item Feature geometry
+\item Data type: list
 }
 }
 }

@@ -10,64 +10,64 @@
 #' of 1983 (GCS NAD83/EPSG: 4269).
 #'
 #' @format
-#' Not all variables are present in all years.
+#' Not all variables are present in all years. Some variable names end with the
+#' 2-digit census decade (e.g., "GEOID20").
 #' \describe{
-#'   \item{ZCTA5CE10/ZCTA5CE20}{
+#'   \item{ZCTA5CE}{
 #'     \itemize{
 #'       \item 5-digit ZCTA code
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{GEOID10/GEOID20}{
+#'   \item{GEOID}{
 #'     \itemize{
 #'       \item Geographic identifier
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{GEOIDFQ20}{
+#'   \item{GEOIDFQ}{
 #'     \itemize{
 #'       \item Fully qualified GEOID
 #'       \item Data type: character
-#'       \item 2023 table only
 #'     }
 #'   }
-#'   \item{CLASSFP10/CLASSFP20}{
+#'   \item{CLASSFP}{
 #'     \itemize{
 #'       \item FIPS class code
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{MTFCC10/MTFCC20}{
+#'   \item{MTFCC}{
 #'     \itemize{
-#'       \item MAF/TIGER Feature Class Code
+#'       \item MAF/TIGER feature class code
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{FUNCSTAT10/FUNCSTAT20}{
+#'   \item{FUNCSTAT}{
 #'     \itemize{
 #'       \item Legal functional status
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{ALAND10/ALAND20}{
+#'   \item{ALAND}{
 #'     \itemize{
 #'       \item Land area
 #'       \item Data type: double
 #'     }
 #'   }
-#'   \item{AWATER10/AWATER20}{
+#'   \item{AWATER}{
 #'     \itemize{
 #'       \item Water area
 #'       \item Data type: double
 #'     }
 #'   }
-#'   \item{INTPTLAT10/INTPTLAT20}{
+#'   \item{INTPTLAT}{
 #'     \itemize{
 #'       \item Latitude of the internal point
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{INTPTLON10/INTPTLON20}{
+#'   \item{INTPTLON}{
 #'     \itemize{
 #'       \item Longitude of the internal point
 #'       \item Data type: character

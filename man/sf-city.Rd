@@ -15,6 +15,7 @@
 \alias{sf_city_2024}
 \title{City boundary shapefiles}
 \format{
+Not all variables are present in all years.
 \describe{
 \item{STATEFP}{
 \itemize{
@@ -44,7 +45,6 @@
 \itemize{
 \item Fully qualified GEOID
 \item Data type: character
-\item 2023 table only
 }
 }
 \item{NAME}{
@@ -81,12 +81,11 @@
 \itemize{
 \item New England city and town area principal city indicator
 \item Data type: character
-\item 2014-2022 tables only
 }
 }
 \item{MTFCC}{
 \itemize{
-\item MAF/TIGER Feature Class Code
+\item MAF/TIGER feature class code
 \item Data type: character
 }
 }

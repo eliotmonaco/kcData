@@ -15,7 +15,111 @@
 \alias{sf_blockgroup_2024}
 \title{Census block group shapefiles}
 \format{
-TBD
+Not all variables are present in all years.
+\describe{
+\item{STATEFP}{
+\itemize{
+\item State FIPS code
+\item Data type: character
+}
+}
+\item{COUNTYFP}{
+\itemize{
+\item County FIPS code
+\item Data type: character
+}
+}
+\item{TRACTCE}{
+\itemize{
+\item Census tract code
+\item Data type: character
+}
+}
+\item{BLKGRPCE}{
+\itemize{
+\item Census block group number
+\item Data type: character
+}
+}
+\item{GEOID}{
+\itemize{
+\item Geographic identifier
+\item Data type: character
+}
+}
+\item{GEOIDFQ}{
+\itemize{
+\item Fully qualified GEOID
+\item Data type: character
+}
+}
+\item{NAMELSAD}{
+\itemize{
+\item Geographic area name and legal/statistical area description
+\item Data type: character
+}
+}
+\item{MTFCC}{
+\itemize{
+\item MAF/TIGER feature class code
+\item Data type: character
+}
+}
+\item{FUNCSTAT}{
+\itemize{
+\item Legal functional status
+\item Data type: character
+}
+}
+\item{ALAND}{
+\itemize{
+\item Land area
+\item Data type: numeric
+}
+}
+\item{AWATER}{
+\itemize{
+\item Water area
+\item Data type: numeric
+}
+}
+\item{INTPTLAT}{
+\itemize{
+\item Latitude of the internal point
+\item Data type: character
+}
+}
+\item{INTPTLON}{
+\itemize{
+\item Longitude of the internal point
+\item Data type: character
+}
+}
+\item{area}{
+\itemize{
+\item Feature area
+\item Data type: double
+}
+}
+\item{kc_area}{
+\itemize{
+\item Feature area within Kansas City boundary
+\item Data type: double
+}
+}
+\item{kc_area_pct}{
+\itemize{
+\item Percentage of feature area within Kansas City boundary
+\item Data type: double
+}
+}
+\item{geometry}{
+\itemize{
+\item Feature geometry
+\item Data type: list
+}
+}
+}
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 459 rows and 16 columns.
 

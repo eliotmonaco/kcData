@@ -40,7 +40,6 @@
 #'     \itemize{
 #'       \item Fully qualified GEOID
 #'       \item Data type: character
-#'       \item 2023 table only
 #'     }
 #'   }
 #'   \item{NAME}{
@@ -57,7 +56,7 @@
 #'   }
 #'   \item{MTFCC}{
 #'     \itemize{
-#'       \item MAF/TIGER Feature Class Code
+#'       \item MAF/TIGER feature class code
 #'       \item Data type: character
 #'     }
 #'   }

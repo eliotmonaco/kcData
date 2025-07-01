@@ -76,12 +76,11 @@
 #'     \itemize{
 #'       \item New England city and town area principal city indicator
 #'       \item Data type: character
-#'       \item 2014-2022 tables only
 #'     }
 #'   }
 #'   \item{MTFCC}{
 #'     \itemize{
-#'       \item MAF/TIGER Feature Class Code
+#'       \item MAF/TIGER feature class code
 #'       \item Data type: character
 #'     }
 #'   }

@@ -10,7 +10,141 @@
 #' of 1983 (GCS NAD83/EPSG: 4269).
 #'
 #' @format
-#' TBD
+#' Not all variables are present in all years.
+#' \describe{
+#'   \item{STATEFP}{
+#'     \itemize{
+#'       \item State FIPS code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{COUNTYFP}{
+#'     \itemize{
+#'       \item County FIPS code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{COUNTYNS}{
+#'     \itemize{
+#'       \item County NS code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{GEOID}{
+#'     \itemize{
+#'       \item Geographic identifier
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{GEOIDFQ}{
+#'     \itemize{
+#'       \item Fully qualified GEOID
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{NAME}{
+#'     \itemize{
+#'       \item Geographic area name
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{NAMELSAD}{
+#'     \itemize{
+#'       \item Geographic area name and legal/statistical area description
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{LSAD}{
+#'     \itemize{
+#'       \item Legal/statistical area description
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{CLASSFP}{
+#'     \itemize{
+#'       \item FIPS class code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{MTFCC}{
+#'     \itemize{
+#'       \item MAF/TIGER feature class code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{CSAFP}{
+#'     \itemize{
+#'       \item Combined statistical area code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{CBSAFP}{
+#'     \itemize{
+#'       \item Metropolitan statistical area/micropolitan statistical area code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{METDIVFP}{
+#'     \itemize{
+#'       \item Metropolitan division code
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{FUNCSTAT}{
+#'     \itemize{
+#'       \item Legal functional status
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{ALAND}{
+#'     \itemize{
+#'       \item Land area
+#'       \item Data type: numeric
+#'     }
+#'   }
+#'   \item{AWATER}{
+#'     \itemize{
+#'       \item Water area
+#'       \item Data type: numeric
+#'     }
+#'   }
+#'   \item{INTPTLAT}{
+#'     \itemize{
+#'       \item Latitude of the internal point
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{INTPTLON}{
+#'     \itemize{
+#'       \item Longitude of the internal point
+#'       \item Data type: character
+#'     }
+#'   }
+#'   \item{area}{
+#'     \itemize{
+#'       \item Feature area
+#'       \item Data type: double
+#'     }
+#'   }
+#'   \item{kc_area}{
+#'     \itemize{
+#'       \item Feature area within Kansas City boundary
+#'       \item Data type: double
+#'     }
+#'   }
+#'   \item{kc_area_pct}{
+#'     \itemize{
+#'       \item Percentage of feature area within Kansas City boundary
+#'       \item Data type: double
+#'     }
+#'   }
+#'   \item{geometry}{
+#'     \itemize{
+#'       \item Feature geometry
+#'       \item Data type: list
+#'     }
+#'   }
+#' }
 #'
 #' @source US Census Bureau TIGER/Line Shapefiles
 #'
