@@ -10,6 +10,7 @@
 #' of 1983 (GCS NAD83/EPSG: 4269).
 #'
 #' @format
+#' Not all variables are present in all years.
 #' \describe{
 #'   \item{STATEFP}{
 #'     \itemize{
@@ -90,12 +91,6 @@
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{geometry}{
-#'     \itemize{
-#'       \item Feature geometry
-#'       \item Data type: list
-#'     }
-#'   }
 #'   \item{area}{
 #'     \itemize{
 #'       \item Feature area
@@ -114,6 +109,12 @@
 #'       \item Data type: double
 #'     }
 #'   }
+#'   \item{geometry}{
+#'     \itemize{
+#'       \item Feature geometry
+#'       \item Data type: list
+#'     }
+#'   }
 #' }
 #'
 #' @source US Census Bureau TIGER/Line Shapefiles
@@ -121,6 +122,12 @@
 #' @name sf-tract
 #' @keywords datasets
 #'
+#' @rdname sf-tract
+"sf_tract_2015"
+#' @rdname sf-tract
+"sf_tract_2016"
+#' @rdname sf-tract
+"sf_tract_2017"
 #' @rdname sf-tract
 "sf_tract_2018"
 #' @rdname sf-tract

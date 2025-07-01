@@ -1,8 +1,8 @@
 test_get_kc_sf <- function(
     geo = c("place", "county", "tract", "block group", "block", "zcta"),
     test_input) {
-  requireNamespace("tigris")
-  requireNamespace("sf")
+  requireNamespace("tigris", quietly = TRUE)
+  requireNamespace("sf", quietly = TRUE)
 
   geo <- match.arg(geo)
 

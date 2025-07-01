@@ -18,6 +18,12 @@
 #' @keywords datasets
 #'
 #' @rdname sf-blockgroup
+"sf_blockgroup_2015"
+#' @rdname sf-blockgroup
+"sf_blockgroup_2016"
+#' @rdname sf-blockgroup
+"sf_blockgroup_2017"
+#' @rdname sf-blockgroup
 "sf_blockgroup_2018"
 #' @rdname sf-blockgroup
 "sf_blockgroup_2019"

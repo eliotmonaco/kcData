@@ -10,6 +10,7 @@
 #' of 1983 (GCS NAD83/EPSG: 4269).
 #'
 #' @format
+#' Not all variables are present in all years.
 #' \describe{
 #'   \item{STATEFP}{
 #'     \itemize{
@@ -39,7 +40,6 @@
 #'     \itemize{
 #'       \item Fully qualified GEOID
 #'       \item Data type: character
-#'       \item 2023 table only
 #'     }
 #'   }
 #'   \item{NAME}{
@@ -128,6 +128,12 @@
 #' @name sf-city
 #' @keywords datasets
 #'
+#' @rdname sf-city
+"sf_city_2015"
+#' @rdname sf-city
+"sf_city_2016"
+#' @rdname sf-city
+"sf_city_2017"
 #' @rdname sf-city
 "sf_city_2018"
 #' @rdname sf-city

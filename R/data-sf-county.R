@@ -18,6 +18,12 @@
 #' @keywords datasets
 #'
 #' @rdname sf-county
+"sf_county_2015"
+#' @rdname sf-county
+"sf_county_2016"
+#' @rdname sf-county
+"sf_county_2017"
+#' @rdname sf-county
 "sf_county_2018"
 #' @rdname sf-county
 "sf_county_2019"

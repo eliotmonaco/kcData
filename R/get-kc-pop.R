@@ -72,7 +72,7 @@ get_kc_pop <- function(
     var_match = c("fixed", "regex"),
     geoid = NULL,
     ...) {
-  requireNamespace("tidycensus")
+  requireNamespace("tidycensus", quietly = TRUE)
 
   geo <- match.arg(geo)
   var_match <- match.arg(var_match)
@@ -82,17 +82,7 @@ get_kc_pop <- function(
 
   if (g %in% c("city", "county")) {
     id <- kcData::geoids[[g]]
-  } else if (g %in% c("tract", "blockgroup")) {
-    if (year %in% 2010:2019) { # get census year
-      cy <- 2010
-    } else if (year %in% 2020:2029) {
-      cy <- 2020
-    } else {
-      cy <- NULL
-    }
-    nm <- paste0("ids", cy)
-    id <- kcData::geoids[[g]][[nm]]
-  } else if (g %in% c("block", "zcta")) {
+  } else {
     nm <- paste0("ids", year)
     id <- kcData::geoids[[g]][[nm]]
   }

@@ -20,20 +20,13 @@ df <- vars20 |>
   filter(grepl("^SEX BY AGE FOR SELECTED AGE CATEGORIES$", concept))
 
 # Get GEOIDs for 2010 data
-g <- c("block", "zcta")
-sf_data <- lapply(g, \(x) get_kc_sf(x, 2010))
-names(sf_data) <- g
+geo <- c("place", "county", "tract", "block group", "block", "zcta")
+sf2010 <- lapply(geo, \(x) get_kc_sf(x, 2010))
+names(sf2010) <- c("city", "county", "tract", "blockgroup", "block", "zcta")
 
-saveRDS(sf_data, "data-raw/data_sf_2010.rds")
+saveRDS(sf2010, "data-raw/data_sf_2010.rds")
 
-geoid2010 <- list(
-  city = NULL,
-  county = NULL,
-  tract = NULL,
-  blockgroup = NULL,
-  block = sf_data$block$GEOID10,
-  zcta = sf_data$zcta$GEOID10
-)
+geoid2010 <- lapply(sf2010, \(x) x$GEOID)
 
 # Get census data
 dec_data <- list()
@@ -45,8 +38,7 @@ for (i in 1:length(srvy)) {
   geo <- c("place", "county", "tract", "block group", "block", "zcta")
 
   for (j in 1:length(geo)) {
-    geo_nm <- sub("\\s", "", geo[j])
-    geo_nm <- sub("place", "city", geo_nm)
+    geo_nm <- sub("place", "city", sub("\\s", "", geo[j]))
     nm <- paste("dec", geo_nm, year[i], sep = "_")
 
     if (year[i] == 2010) {
@@ -68,7 +60,7 @@ for (i in 1:length(srvy)) {
 }
 
 # Filter out rows with no data
-dec_data <- lapply(dec_data, \(x) filter(x, !is.na(value)))
+dec_data <- lapply(dec_data, \(x) dplyr::filter(x, !is.na(value)))
 
 # Save in `data/`
 for (i in 1:length(dec_data)) {

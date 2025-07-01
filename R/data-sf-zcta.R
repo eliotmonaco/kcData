@@ -10,6 +10,7 @@
 #' of 1983 (GCS NAD83/EPSG: 4269).
 #'
 #' @format
+#' Not all variables are present in all years.
 #' \describe{
 #'   \item{ZCTA5CE10/ZCTA5CE20}{
 #'     \itemize{
@@ -72,12 +73,6 @@
 #'       \item Data type: character
 #'     }
 #'   }
-#'   \item{geometry}{
-#'     \itemize{
-#'       \item Feature geometry
-#'       \item Data type: list
-#'     }
-#'   }
 #'   \item{area}{
 #'     \itemize{
 #'       \item Feature area
@@ -96,6 +91,12 @@
 #'       \item Data type: double
 #'     }
 #'   }
+#'   \item{geometry}{
+#'     \itemize{
+#'       \item Feature geometry
+#'       \item Data type: list
+#'     }
+#'   }
 #' }
 #'
 #' @source US Census Bureau TIGER/Line Shapefiles
@@ -103,6 +104,12 @@
 #' @name sf-zcta
 #' @keywords datasets
 #'
+#' @rdname sf-zcta
+"sf_zcta_2015"
+#' @rdname sf-zcta
+"sf_zcta_2016"
+#' @rdname sf-zcta
+"sf_zcta_2017"
 #' @rdname sf-zcta
 "sf_zcta_2018"
 #' @rdname sf-zcta

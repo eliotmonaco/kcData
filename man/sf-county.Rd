@@ -3,6 +3,9 @@
 \docType{data}
 \name{sf-county}
 \alias{sf-county}
+\alias{sf_county_2015}
+\alias{sf_county_2016}
+\alias{sf_county_2017}
 \alias{sf_county_2018}
 \alias{sf_county_2019}
 \alias{sf_county_2020}
@@ -22,6 +25,12 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 2
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 21 columns.
 
+An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 21 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 21 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 21 columns.
+
 An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 22 columns.
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 22 columns.
@@ -30,6 +39,12 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 4 rows and 2
 US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
+sf_county_2015
+
+sf_county_2016
+
+sf_county_2017
+
 sf_county_2018
 
 sf_county_2019

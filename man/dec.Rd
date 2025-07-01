@@ -62,11 +62,11 @@ An object of class \code{data.frame} with 4 rows and 6 columns.
 
 An object of class \code{data.frame} with 4 rows and 6 columns.
 
-An object of class \code{data.frame} with 168 rows and 6 columns.
+An object of class \code{data.frame} with 173 rows and 6 columns.
 
 An object of class \code{data.frame} with 185 rows and 6 columns.
 
-An object of class \code{data.frame} with 451 rows and 6 columns.
+An object of class \code{data.frame} with 460 rows and 6 columns.
 
 An object of class \code{data.frame} with 510 rows and 6 columns.
 

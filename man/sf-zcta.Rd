@@ -3,6 +3,9 @@
 \docType{data}
 \name{sf-zcta}
 \alias{sf-zcta}
+\alias{sf_zcta_2015}
+\alias{sf_zcta_2016}
+\alias{sf_zcta_2017}
 \alias{sf_zcta_2018}
 \alias{sf_zcta_2019}
 \alias{sf_zcta_2020}
@@ -102,6 +105,12 @@
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 62 rows and 13 columns.
 
+An object of class \code{sf} (inherits from \code{data.frame}) with 62 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 62 rows and 13 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 62 rows and 13 columns.
+
 An object of class \code{sf} (inherits from \code{data.frame}) with 59 rows and 13 columns.
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 59 rows and 13 columns.
@@ -116,6 +125,12 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 60 rows and 
 US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
+sf_zcta_2015
+
+sf_zcta_2016
+
+sf_zcta_2017
+
 sf_zcta_2018
 
 sf_zcta_2019

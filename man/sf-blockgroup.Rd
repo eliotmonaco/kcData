@@ -3,6 +3,9 @@
 \docType{data}
 \name{sf-blockgroup}
 \alias{sf-blockgroup}
+\alias{sf_blockgroup_2015}
+\alias{sf_blockgroup_2016}
+\alias{sf_blockgroup_2017}
 \alias{sf_blockgroup_2018}
 \alias{sf_blockgroup_2019}
 \alias{sf_blockgroup_2020}
@@ -13,6 +16,12 @@
 \title{Census block group shapefiles}
 \format{
 TBD
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 459 rows and 16 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 451 rows and 16 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 451 rows and 16 columns.
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 451 rows and 16 columns.
 
@@ -30,6 +39,12 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 510 rows and
 US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
+sf_blockgroup_2015
+
+sf_blockgroup_2016
+
+sf_blockgroup_2017
+
 sf_blockgroup_2018
 
 sf_blockgroup_2019

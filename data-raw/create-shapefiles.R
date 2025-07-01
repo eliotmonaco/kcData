@@ -4,7 +4,7 @@ devtools::load_all()
 
 options(tigris_use_cache = TRUE)
 
-year <- 2018:2024
+year <- 2015:2024
 geo <- c("place", "county", "tract", "block group", "block", "zcta")
 sf_data <- list()
 
@@ -27,12 +27,12 @@ for (i in 1:length(sf_data)) {
 }
 
 # Save in `data-raw/`
-saveRDS(sf_data, "data-raw/data_sf_2018_2024.rds")
+saveRDS(sf_data, "data-raw/data_sf_2015_2024.rds")
 
 
 # GEOIDs ------------------------------------------------------------------
 
-geo <- c("city", "county", "tract", "block group", "block", "zcta")
+geo <- c("city", "county", "tract", "blockgroup", "block", "zcta")
 
 geoids <- lapply(geo, \(x) {
   ls <- lapply(
@@ -49,16 +49,9 @@ geoids <- lapply(geo, \(x) {
 names(geoids) <- geo
 
 geoids <- lapply(geoids, \(x) {
-  c1 <- setmeup::batch_compare(lapply(x, \(y) sort(unlist(y))))
-  c2a <- setmeup::batch_compare(lapply(x[grepl("201", names(x))], \(y) sort(unlist(y))))
-  c2b <- setmeup::batch_compare(lapply(x[grepl("202", names(x))], \(y) sort(unlist(y))))
-  if (all(c1)) {
+  c <- setmeup::batch_compare(lapply(x, \(y) sort(unlist(y))))
+  if (all(c)) {
     unique(unlist(x))
-  } else if (all(c2a) & all(c2b)) {
-    list(
-      ids2010 = unique(unlist(x[grepl("201", names(x))])),
-      ids2020 = unique(unlist(x[grepl("202", names(x))]))
-    )
   } else {
     x
   }

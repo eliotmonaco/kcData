@@ -3,6 +3,9 @@
 \docType{data}
 \name{sf-city}
 \alias{sf-city}
+\alias{sf_city_2015}
+\alias{sf_city_2016}
+\alias{sf_city_2017}
 \alias{sf_city_2018}
 \alias{sf_city_2019}
 \alias{sf_city_2020}
@@ -136,11 +139,23 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 1
 An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 1 rows and 17 columns.
 }
 \source{
 US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
+sf_city_2015
+
+sf_city_2016
+
+sf_city_2017
+
 sf_city_2018
 
 sf_city_2019

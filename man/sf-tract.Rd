@@ -3,6 +3,9 @@
 \docType{data}
 \name{sf-tract}
 \alias{sf-tract}
+\alias{sf_tract_2015}
+\alias{sf_tract_2016}
+\alias{sf_tract_2017}
 \alias{sf_tract_2018}
 \alias{sf_tract_2019}
 \alias{sf_tract_2020}
@@ -118,6 +121,12 @@
 }
 }
 
+An object of class \code{sf} (inherits from \code{data.frame}) with 172 rows and 16 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 168 rows and 16 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 168 rows and 16 columns.
+
 An object of class \code{sf} (inherits from \code{data.frame}) with 168 rows and 16 columns.
 
 An object of class \code{sf} (inherits from \code{data.frame}) with 185 rows and 16 columns.
@@ -134,6 +143,12 @@ An object of class \code{sf} (inherits from \code{data.frame}) with 185 rows and
 US Census Bureau TIGER/Line Shapefiles
 }
 \usage{
+sf_tract_2015
+
+sf_tract_2016
+
+sf_tract_2017
+
 sf_tract_2018
 
 sf_tract_2019
