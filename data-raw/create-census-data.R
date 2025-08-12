@@ -5,18 +5,27 @@ options(tigris_use_cache = TRUE)
 
 # Find variables for 2010 census
 vars10 <- tidycensus::load_variables(2010, "sf1", cache = TRUE)
+
 df <- vars10 |>
   filter(grepl("^SEX BY AGE", concept)) |>
   count(concept)
+
 df <- vars10 |>
   filter(grepl("^SEX BY AGE$", concept))
 
+## Age group variables
+df10 <- df |>
+  filter(grepl("^P0120", name))
+
 # Find variables for 2020 census
 vars20 <- tidycensus::load_variables(2020, "dhc", cache = TRUE)
+
 df <- vars20 |>
   filter(grepl("^SEX BY AGE", concept)) |>
   count(concept)
-df <- vars20 |>
+
+## Age group variables
+df20 <- vars20 |>
   filter(grepl("^SEX BY AGE FOR SELECTED AGE CATEGORIES$", concept))
 
 # Get GEOIDs for 2010 data
@@ -32,7 +41,10 @@ geoid2010 <- lapply(sf2010, \(x) x$GEOID)
 dec_data <- list()
 srvy <- c("sf1", "dhc")
 year <- c(2010, 2020)
-vars <- c("P012001", "P12_001N")
+vars <- list(
+  vars10 = df10$name,
+  vars20 = df20$name
+)
 
 for (i in 1:length(srvy)) {
   geo <- c("place", "county", "tract", "block group", "block", "zcta")
@@ -51,7 +63,7 @@ for (i in 1:length(srvy)) {
       dataset = srvy[i],
       geo = geo[j],
       year = year[i],
-      vars = vars[i],
+      vars = vars[[i]],
       var_match = "fixed",
       geoid = id,
       key = keyring::key_get("census-api-key")
@@ -73,4 +85,4 @@ for (i in 1:length(dec_data)) {
 }
 
 # Save in `data-raw/`
-saveRDS(dec_data, "data-raw/data_dec_2010.rds")
+saveRDS(dec_data, "data-raw/data_dec_2010_2020.rds")

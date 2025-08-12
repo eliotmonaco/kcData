@@ -56,27 +56,27 @@
 }
 }
 
-An object of class \code{data.frame} with 1 rows and 6 columns.
+An object of class \code{data.frame} with 49 rows and 6 columns.
 
-An object of class \code{data.frame} with 4 rows and 6 columns.
+An object of class \code{data.frame} with 196 rows and 6 columns.
 
-An object of class \code{data.frame} with 4 rows and 6 columns.
+An object of class \code{data.frame} with 196 rows and 6 columns.
 
-An object of class \code{data.frame} with 173 rows and 6 columns.
+An object of class \code{data.frame} with 8477 rows and 6 columns.
 
-An object of class \code{data.frame} with 185 rows and 6 columns.
+An object of class \code{data.frame} with 9065 rows and 6 columns.
 
-An object of class \code{data.frame} with 460 rows and 6 columns.
+An object of class \code{data.frame} with 22540 rows and 6 columns.
 
-An object of class \code{data.frame} with 510 rows and 6 columns.
+An object of class \code{data.frame} with 24990 rows and 6 columns.
 
-An object of class \code{data.frame} with 12001 rows and 6 columns.
+An object of class \code{data.frame} with 588049 rows and 6 columns.
 
-An object of class \code{data.frame} with 10730 rows and 6 columns.
+An object of class \code{data.frame} with 525770 rows and 6 columns.
 
-An object of class \code{data.frame} with 62 rows and 6 columns.
+An object of class \code{data.frame} with 3038 rows and 6 columns.
 
-An object of class \code{data.frame} with 59 rows and 6 columns.
+An object of class \code{data.frame} with 2891 rows and 6 columns.
 }
 \source{
 US Census Bureau decennial census
