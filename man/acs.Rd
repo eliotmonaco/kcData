@@ -8,6 +8,7 @@
 \alias{acs1_city_2021}
 \alias{acs1_city_2022}
 \alias{acs1_city_2023}
+\alias{acs1_city_2024}
 \alias{acs5_city_2018}
 \alias{acs5_city_2019}
 \alias{acs5_city_2020}
@@ -101,6 +102,8 @@ An object of class \code{data.frame} with 294 rows and 7 columns.
 
 An object of class \code{data.frame} with 296 rows and 7 columns.
 
+An object of class \code{data.frame} with 297 rows and 7 columns.
+
 An object of class \code{data.frame} with 359 rows and 8 columns.
 
 An object of class \code{data.frame} with 359 rows and 8 columns.
@@ -175,6 +178,8 @@ acs1_city_2021
 acs1_city_2022
 
 acs1_city_2023
+
+acs1_city_2024
 
 acs5_city_2018
 

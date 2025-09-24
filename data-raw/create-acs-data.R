@@ -4,7 +4,7 @@ devtools::load_all()
 # Get ACS data
 acs_data <- list()
 srvy <- c("acs1", "acs5")
-year <- 2018:2023
+year <- 2018:2024
 
 for (i in 1:length(srvy)) {
   for (j in 1:length(year)) {
@@ -45,4 +45,4 @@ for (i in 1:length(acs_data)) {
 }
 
 # Save in `data-raw/`
-saveRDS(acs_data, "data-raw/data_acs_2018_2023.rds")
+saveRDS(acs_data, "data-raw/data_acs_2018_2024.rds")

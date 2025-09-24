@@ -89,6 +89,8 @@
 #' @rdname acs
 "acs1_city_2023"
 #' @rdname acs
+"acs1_city_2024"
+#' @rdname acs
 "acs5_city_2018"
 #' @rdname acs
 "acs5_city_2019"
