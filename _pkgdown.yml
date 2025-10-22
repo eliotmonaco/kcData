@@ -4,20 +4,29 @@ template:
   light-switch: true
 
 reference:
+
   - title: Functions
   - contents:
     - get_kc_pop
     - get_kc_sf
+
   - title: American Community Survey data
   - contents:
     - starts_with("acs1_")
     - starts_with("acs5_")
+
   - title: Decennial census data
   - contents:
     - starts_with("dec_")
+
+  - title: Population estimates
+  - contents:
+    - starts_with("popest_")
+
   - title: Simple features data
   - contents:
     - starts_with("sf_")
+
   - title: Other data
   - contents:
     - geoids
