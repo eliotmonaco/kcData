@@ -9,6 +9,7 @@ reference:
   - contents:
     - get_kc_pop
     - get_kc_sf
+    - return_popest_table
 
   - title: American Community Survey data
   - contents:

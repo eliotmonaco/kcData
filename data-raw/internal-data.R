@@ -1,7 +1,9 @@
-SOMEDATA <- readRDS("data-raw/SOMEDATA.rds")
+load("data/popest_ic20.rda")
+load("data/popest_v24.rda")
 
 usethis::use_data(
-  SOMEDATA,
+  popest_ic20,
+  popest_v24,
   internal = TRUE,
   overwrite = TRUE
 )
