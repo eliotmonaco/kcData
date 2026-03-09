@@ -24,10 +24,3 @@ reference:
   - contents:
     - starts_with("popest_")
 
-  - title: Simple features data
-  - contents:
-    - starts_with("sf_")
-
-  - title: Other data
-  - contents:
-    - geoids

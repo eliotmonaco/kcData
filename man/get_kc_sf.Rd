@@ -5,39 +5,48 @@
 \title{Get simple features objects for Kansas City}
 \usage{
 get_kc_sf(
-  geo = c("place", "county", "tract", "block group", "block", "zcta"),
-  year
+  geo = c("cbsa", "place", "county", "tract", "blockgroup", "block", "zcta"),
+  year,
+  intersect = c("city", "metro"),
+  geometry = c("clipped", "full")
 )
 }
 \arguments{
-\item{geo}{The geography of the data set to download. \code{"place"} returns the
-city boundary geometry. All others return geometries that intersect with the
-city boundary.}
+\item{geo}{The shapefile geography. \code{"place"} returns the city boundary and
+\code{"cbsa"} returns the metro region boundary.}
 
-\item{year}{The year of the data set to download.}
+\item{year}{The shapefile year.}
+
+\item{intersect}{If \code{geo} is not \code{"place"} or \code{"cbsa"}, this is the larger
+geography that determines the intersection for the geography selected in
+\code{geo}. If \code{"metro"} is selected, geographies in both Kansas and Missouri will
+be  returned.}
+
+\item{geometry}{If \code{geo} is not \code{"place"} or \code{"cbsa"}, return either the full
+geometries or geometries clipped to the geography indicated in \code{intersect}.}
 }
 \value{
 A dataframe of class \code{sf} containing a simple feature list column.
 }
 \description{
-Download a TIGER/Line shapefile with boundaries for Kansas City or for a
-geography intersecting with Kansas City: county, census tract, census block
-group, census block, or zip code tabulation area (ZCTA). Files are downloaded
-from the US Census Bureau using the \href{https://github.com/walkerke/tigris}{tigris} package.
+Download a TIGER/Line shapefile containing
+\itemize{
+\item the Kansas City city boundary
+\item the Kansas City metro region boundary
+\item a set of smaller geographies intersecting with one of the above: county,
+census tract, census block group, census block, or zip code tabulation area
+(ZCTA)
+}
+
+Files are downloaded from the US Census Bureau using the \href{https://github.com/walkerke/tigris}{tigris}
+package.
 }
 \details{
-Geographies that intersect with the city boundary are circumscribed to the
-city boundary if they are not fully within the city.
-
-These columns are added to the shapefiles for all geographies other than
-"place":
-\itemize{
-\item \code{area}: the total area of the feature
-\item \code{kc_area}: the area of the feature contained within the city boundary
-\item \code{kc_area_pct}: the percentage of the feature within the city boundary
-}
-
-Area is calculated by \code{\link[sf:geos_measures]{sf::st_area()}}.
+Geographies smaller than the city or metro region can contain the full
+geometry or geometries clipped to the city or metro region boundary. For
+these geographies, when \code{geometry = "clipped"} two additional variables are
+added for the feature's full area and the area within the city or metro
+region boundary.
 }
 \section{Additional resources}{
 \itemize{
@@ -49,7 +58,19 @@ Area is calculated by \code{\link[sf:geos_measures]{sf::st_area()}}.
 
 \examples{
 \dontrun{
-get_kc_sf("tract", 2024)
+# Get the 2024 city boundary
+city <- get_kc_sf(geo = "place", year = 2024)
+
+# Get 2024 census tracts clipped to the city boundary
+tracts <- get_kc_sf(geo = "tract", year = 2024)
+
+# Get full 2024 ZCTAs that intersect with the KC metro region
+zctas <- get_kc_sf(
+  geo = "zcta",
+  year = 2024,
+  intersect = "metro",
+  geometry = "full"
+)
 }
 
 }

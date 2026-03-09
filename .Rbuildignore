@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^kcData\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$

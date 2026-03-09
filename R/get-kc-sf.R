@@ -1,25 +1,25 @@
 #' Get simple features objects for Kansas City
 #'
 #' @description
-#' Download a TIGER/Line shapefile with boundaries for Kansas City or for a
-#' geography intersecting with Kansas City: county, census tract, census block
-#' group, census block, or zip code tabulation area (ZCTA). Files are downloaded
-#' from the US Census Bureau using the [tigris][tig] package.
+#' Download a TIGER/Line shapefile containing
+#'
+#' - the Kansas City city boundary
+#' - the Kansas City metro region boundary
+#' - a set of smaller geographies intersecting with one of the above: county,
+#' census tract, census block group, census block, or zip code tabulation area
+#' (ZCTA)
+#'
+#' Files are downloaded from the US Census Bureau using the [tigris][tig]
+#' package.
 #'
 #' [tig]:https://github.com/walkerke/tigris
 #'
 #' @details
-#' Geographies that intersect with the city boundary are circumscribed to the
-#' city boundary if they are not fully within the city.
-#'
-#' These columns are added to the shapefiles for all geographies other than
-#' "place":
-#'
-#' - `area`: the total area of the feature
-#' - `kc_area`: the area of the feature contained within the city boundary
-#' - `kc_area_pct`: the percentage of the feature within the city boundary
-#'
-#' Area is calculated by [sf::st_area()].
+#' Geographies smaller than the city or metro region can contain the full
+#' geometry or geometries clipped to the city or metro region boundary. For
+#' these geographies, when `geometry = "clipped"` two additional variables are
+#' added for the feature's full area and the area within the city or metro
+#' region boundary.
 #'
 #' # Additional resources
 #'
@@ -31,106 +31,161 @@
 #' [geo]:https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf
 #' [tig]:https://github.com/walkerke/tigris
 #'
-#' @param geo The geography of the data set to download. `"place"` returns the
-#' city boundary geometry. All others return geometries that intersect with the
-#' city boundary.
-#' @param year The year of the data set to download.
+#' @param geo The shapefile geography. `"place"` returns the city boundary and
+#' `"cbsa"` returns the metro region boundary.
+#' @param year The shapefile year.
+#' @param intersect If `geo` is not `"place"` or `"cbsa"`, this is the larger
+#' geography that determines the intersection for the geography selected in
+#' `geo`. If `"metro"` is selected, geographies in both Kansas and Missouri will
+#' be  returned.
+#' @param geometry If `geo` is not `"place"` or `"cbsa"`, return either the full
+#' geometries or geometries clipped to the geography indicated in `intersect`.
 #'
 #' @returns A dataframe of class `sf` containing a simple feature list column.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' get_kc_sf("tract", 2024)
+#' # Get the 2024 city boundary
+#' city <- get_kc_sf(geo = "place", year = 2024)
+#'
+#' # Get 2024 census tracts clipped to the city boundary
+#' tracts <- get_kc_sf(geo = "tract", year = 2024)
+#'
+#' # Get full 2024 ZCTAs that intersect with the KC metro region
+#' zctas <- get_kc_sf(
+#'   geo = "zcta",
+#'   year = 2024,
+#'   intersect = "metro",
+#'   geometry = "full"
+#' )
 #' }
 #'
 get_kc_sf <- function(
-    geo = c("place", "county", "tract", "block group", "block", "zcta"),
-    year) {
+  geo = c("cbsa", "place", "county", "tract", "blockgroup", "block", "zcta"),
+  year,
+  intersect = c("city", "metro"),
+  geometry = c("clipped", "full")
+) {
   requireNamespace("tigris", quietly = TRUE)
   requireNamespace("sf", quietly = TRUE)
 
   geo <- match.arg(geo)
+  intersect <- match.arg(intersect)
+  geometry <- match.arg(geometry)
 
-  # Download the Missouri shapefile
-  sf1 <- tryCatch(
-    get_raw_sf1(year),
-    error = function(e) {
-      cat("tigris error:", conditionMessage(e), "\n")
-      NULL
-    }
-  )
+  if (geo == "place" |
+    all(!geo %in% c("cbsa", "place"), intersect == "city")) {
+    # Download the Missouri places shapefile
+    sf1 <- get_sf(geo = "place", state = 29, year = year)
 
-  if (is.null(sf1)) return(sf1)
+    # Filter for the KC boundary
+    sf1 <- sf1[which(sf1$PLACEFP == "38000"), ]
+  } else if (geo == "cbsa" |
+    all(!geo %in% c("cbsa", "place"), intersect == "metro")) {
+    # Download the CBSA shapefile
+    sf1 <- get_sf(geo = "cbsa", year = year)
 
-  # Filter for the city boundary
-  sf1 <- sf1[which(sf1$PLACEFP == "38000"), ]
+    # Filter for the KC metro region
+    sf1 <- sf1[which(grepl("Kansas City", sf1$NAME)), ]
+  }
 
-  # Return the city boundary or download the shapefile for the specified
-  # geography
-  if (geo == "place") {
-    sf1
-  } else {
-    sf2 <- tryCatch(
-      get_raw_sf2(geo, year),
-      error = function(e) {
-        cat("tigris error:", conditionMessage(e), "\n")
-        NULL
-      }
+  rownames(sf1) <- NULL
+
+  if (geo %in% c("cbsa", "place")) {
+    return(sf1)
+  }
+
+  # Download a smaller geography
+  if (intersect == "city") {
+    sf2 <- get_sf(
+      geo = geo, state = 29, year = year, # MO
+      county = c("037", "047", "095", "165")
+    )
+  } else if (intersect == "metro") {
+    sf2a <- get_sf(
+      geo = geo, state = 20, year = year, # KS
+      county = c("091", "103", "107", "121", "209")
     )
 
-    if (is.null(sf2)) return(sf2)
+    sf2b <- get_sf(
+      geo = geo, state = 29, year = year, # MO
+      county = c("013", "025", "037", "047", "049", "095", "107", "165", "177")
+    )
+
+    sf2 <- rbind(sf2a, sf2b)
+  }
+
+  # Filter for geometries in `sf2` that share interior with `sf1`
+  sf2a <- sf::st_filter(sf2, sf1, .predicate = sf::st_intersects)
+
+  sf2b <- sf::st_filter(sf2, sf1, .predicate = sf::st_touches)
+
+  var <- colnames(sf2a)[grepl("^GEOID(10|20)?$", colnames(sf2a))]
+
+  sf2 <- sf2a[!sf2a[[var]] %in% sf2b[[var]], ]
+
+  if (geometry == "full") {
+    rownames(sf2) <- NULL
+
+    sf2
+  } else if (geometry == "clipped") {
+    var <- paste0(intersect, "_area")
 
     cols <- colnames(sf2)
 
     # Get the area of each geometry
     sf2$area <- sf::st_area(sf2)
 
-    # Restrict each geometry to the area within the city
-    sf2 <- sf::st_intersection(sf1[, "geometry"], sf2)
-
-    # Keep only polygons
-    sf2 <- sf::st_collection_extract(sf2, "POLYGON")
-
-    sf2 <- sf::st_make_valid(sf2)
-
-    sf2 <- sf2[!sf::st_is_empty(sf2), ]
+    # Clip `sf2` using `sf1`
+    sf2 <- clip_sf(sf1, sf2)
 
     # Get the area of the intersecting portion
-    sf2$kc_area <- sf::st_area(sf2)
-
-    # Calculate the percentage of the area within the city
-    sf2$kc_area_pct <- as.numeric(sf2$kc_area * 100 / sf2$area)
+    sf2[[var]] <- sf::st_area(sf2)
 
     cols <- c(
       cols[!cols %in% "geometry"],
-      "area", "kc_area", "kc_area_pct", "geometry"
+      "area", var, "geometry"
     )
+
+    rownames(sf2) <- NULL
 
     sf2[, cols]
   }
 }
 
-get_raw_sf1 <- function(year) {
-  if (as.numeric(year) == 2010) {
-    url <- "https://www2.census.gov/geo/tiger/TIGER2010/PLACE/2010/tl_2010_29_place10.zip"
-    tigris:::load_tiger(url = url, tigris_type = "place")
-  } else {
-    tigris::places(state = 29, year = year)
+get_sf <- function(geo, state = NULL, year = NULL, county = NULL) {
+  if (geo == "cbsa") {
+    tigris::core_based_statistical_areas(year = year)
+  } else if (geo == "place") {
+    tigris::places(state = state, year = year)
+  } else if (geo == "county") {
+    tigris::counties(state = state, year = year)
+  } else if (geo == "tract") {
+    tigris::tracts(state = state, year = year)
+  } else if (geo == "blockgroup") {
+    tigris::block_groups(state = state, county = county, year = year)
+  } else if (geo == "block") {
+    tigris::blocks(state = state, county = county, year = year)
+  } else if (geo == "zcta") {
+    sw <- if (state == 29) {
+      as.character(63:65)
+    } else if (state == 20) {
+      as.character(66:67)
+    } else {
+      NULL
+    }
+    tigris::zctas(starts_with = sw, year = year)
   }
 }
 
-get_raw_sf2 <- function(geo, year) {
-  counties <- c("037", "047", "095", "165") # Cass, Clay, Jackson, & Platte
-  if (geo == "county") {
-    tigris::counties(state = 29, year = year)
-  } else if (geo == "tract") {
-    tigris::tracts(state = 29, year = year)
-  } else if (geo == "block group") {
-    tigris::block_groups(state = 29, county = counties, year = year)
-  } else if (geo == "block") {
-    tigris::blocks(state = 29, county = counties, year = year)
-  } else if (geo == "zcta") {
-    tigris::zctas(starts_with = 64, year = year)
-  }
+clip_sf <- function(x, y) {
+  y <- sf::st_intersection(x[, "geometry"], y)
+
+  y <- sf::st_collection_extract(y, "POLYGON")
+
+  y <- sf::st_make_valid(y)
+
+  y[!sf::st_is_empty(y), ]
 }
+

@@ -1,78 +1,117 @@
+test_that("cbsa", {
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = function(...) data$mock$cbsa)
+  act <- get_kc_sf(geo = "cbsa", year = 2024)
+  exp <- data$out$cbsa
+  expect_equal(act, exp)
+})
+
 test_that("place", {
-  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
-  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
-  local_mocked_bindings(get_raw_sf1 = function(...) sf_in$place)
-  act <- get_kc_sf(geo = "place", year = 2020)
-  exp <- sf_out$place
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = function(...) data$mock$place)
+  act <- get_kc_sf(geo = "place", year = 2024)
+  exp <- data$out$place
   expect_equal(act, exp)
 })
 
-test_that("county", {
-  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
-  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
-  local_mocked_bindings(
-    get_raw_sf1 = function(...) sf_in$place,
-    get_raw_sf2 = function(...) sf_in$county
-  )
-  act <- suppressWarnings(
-    get_kc_sf(geo = "county", year = 2020)
-  )
-  exp <- sf_out$county
-  expect_equal(act, exp)
-})
-
-test_that("tract", {
-  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
-  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
-  local_mocked_bindings(
-    get_raw_sf1 = function(...) sf_in$place,
-    get_raw_sf2 = function(...) sf_in$tract
-  )
-  act <- suppressWarnings(
-    get_kc_sf(geo = "tract", year = 2020)
-  )
-  exp <- sf_out$tract
-  expect_equal(act, exp)
-})
-
-test_that("block group", {
-  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
-  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
-  local_mocked_bindings(
-    get_raw_sf1 = function(...) sf_in$place,
-    get_raw_sf2 = function(...) sf_in$blockgroup
-  )
-  act <- suppressWarnings(
-    get_kc_sf(geo = "block group", year = 2020)
-  )
-  exp <- sf_out$blockgroup
-  expect_equal(act, exp)
-})
-
-test_that("block", {
-  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
-  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
-  local_mocked_bindings(
-    get_raw_sf1 = function(...) sf_in$place,
-    get_raw_sf2 = function(...) sf_in$block
-  )
-  act <- suppressMessages(suppressWarnings(
-    get_kc_sf(geo = "block", year = 2020)
+test_that("county city clipped", {
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = mock_output_sequence(
+    data$mock$place, data$mock$county_mo
   ))
-  exp <- sf_out$block
+  act <- suppressWarnings(
+    get_kc_sf(
+      geo = "county",
+      year = 2024,
+      intersect = "city",
+      geometry = "clipped"
+    )
+  )
+  exp <- data$out$county$city_clipped
   expect_equal(act, exp)
 })
 
-test_that("zcta", {
-  sf_in <- readRDS(test_path("fixtures", "sf_input.rds"))
-  sf_out <- readRDS(test_path("fixtures", "sf_output.rds"))
-  local_mocked_bindings(
-    get_raw_sf1 = function(...) sf_in$place,
-    get_raw_sf2 = function(...) sf_in$zcta
-  )
-  act <- suppressMessages(suppressWarnings(
-    get_kc_sf(geo = "zcta", year = 2020)
+test_that("county city full", {
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = mock_output_sequence(
+    data$mock$place, data$mock$county_mo
   ))
-  exp <- sf_out$zcta
+  act <- suppressWarnings(
+    get_kc_sf(
+      geo = "county",
+      year = 2024,
+      intersect = "city",
+      geometry = "full"
+    )
+  )
+  exp <- data$out$county$city_full
+  expect_equal(act, exp)
+})
+
+test_that("zcta city clipped", {
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = mock_output_sequence(
+    data$mock$place, data$mock$zcta_mo
+  ))
+  act <- suppressWarnings(
+    get_kc_sf(
+      geo = "zcta",
+      year = 2024,
+      intersect = "city",
+      geometry = "clipped"
+    )
+  )
+  exp <- data$out$zcta$city_clipped
+  expect_equal(act, exp)
+})
+
+test_that("zcta city full", {
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = mock_output_sequence(
+    data$mock$place, data$mock$zcta_mo
+  ))
+  act <- suppressWarnings(
+    get_kc_sf(
+      geo = "zcta",
+      year = 2024,
+      intersect = "city",
+      geometry = "full"
+    )
+  )
+  exp <- data$out$zcta$city_full
+  expect_equal(act, exp)
+})
+
+test_that("zcta metro clipped", {
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = mock_output_sequence(
+    data$mock$cbsa, data$mock$zcta_ks, data$mock$zcta_mo
+  ))
+  act <- suppressWarnings(
+    get_kc_sf(
+      geo = "zcta",
+      year = 2024,
+      intersect = "metro",
+      geometry = "clipped"
+    )
+  )
+  exp <- data$out$zcta$metro_clipped
+  expect_equal(act, exp)
+})
+
+test_that("county metro full", {
+  data <- readRDS(test_path("fixtures", "data_get_kc_sf.rds"))
+  local_mocked_bindings(get_sf = mock_output_sequence(
+    data$mock$cbsa, data$mock$county_ks, data$mock$county_mo
+  ))
+  act <- suppressWarnings(
+    get_kc_sf(
+      geo = "county",
+      year = 2024,
+      intersect = "metro",
+      geometry = "full"
+    )
+  )
+  exp <- data$out$county$metro_full
   expect_equal(act, exp)
 })
