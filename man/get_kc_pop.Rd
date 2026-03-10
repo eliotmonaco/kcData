@@ -6,11 +6,11 @@
 \usage{
 get_kc_pop(
   dataset,
-  geo = c("place", "county", "tract", "block group", "block", "zcta"),
+  geo = c("place", "county", "tract", "blockgroup", "block", "zcta"),
   year,
   vars,
   var_match = c("fixed", "regex"),
-  geoid = NULL,
+  geoids = NULL,
   ...
 )
 }
@@ -19,22 +19,20 @@ get_kc_pop(
 \code{\link[tidycensus:load_variables]{tidycensus::load_variables()}} and either \code{survey} in \code{\link[tidycensus:get_acs]{tidycensus::get_acs()}}
 or \code{sumfile} in \code{\link[tidycensus:get_decennial]{tidycensus::get_decennial()}}.}
 
-\item{geo}{The geography (summary level) of the data set to download.}
+\item{geo}{The data set geography (summary level).}
 
-\item{year}{The year of the data set to download.}
+\item{year}{The data set year.}
 
-\item{vars}{A vector of variable names or a regular expression to match
-variable names for download.}
+\item{vars}{The variables to download. Either a vector of variable names or a
+regular expression pattern.}
 
-\item{var_match}{The type of matching to perform on variable names. \code{"fixed"}
-matches the values in \code{vars} exactly, and \code{"regex"} matches to a regular
-expression pattern in \code{vars}.}
+\item{var_match}{Use \code{"fixed"} to match variable names in \code{vars} exactly or
+\code{"regex"} to match them to a regular expression pattern.}
 
-\item{geoid}{An optional vector of GEOIDs to supply if the relevant spatial
-data sets are unavailable in kcData.}
+\item{geoids}{A vector of GEOIDs to filter the output.}
 
 \item{...}{Additional arguments passed to \code{\link[tidycensus:get_acs]{tidycensus::get_acs()}} or
-\code{\link[tidycensus:get_decennial]{tidycensus::get_decennial()}}.}
+\code{\link[tidycensus:get_decennial]{tidycensus::get_decennial()}}, such as \code{key} for the user's census API key.}
 }
 \value{
 A dataframe.
@@ -47,10 +45,12 @@ tabulation area (ZCTA). Data sets are downloaded from the US Census Bureau
 using the \href{https://walker-data.com/tidycensus/index.html}{tidycensus} package.
 }
 \details{
-Data sets for geographies other than "place" are filtered for geographic
-units that intersect with Kansas City. These geographic units are determined
-by the shapefile downloaded for the specified year. If no shapefile has been
-downloaded for that year, an error is returned.
+ACS and census variables can be explored at the \href{https://censusreporter.org/}{Census Reporter} website
+or by using \code{\link[tidycensus:load_variables]{tidycensus::load_variables()}} to download variables for a
+specific data set.
+
+GEOIDs can be obtained from US Census Bureau shapefiles or from the data set
+\code{geoid} in this package.
 }
 \section{Additional resources}{
 \itemize{
@@ -68,15 +68,17 @@ acs5_2023 <- get_kc_pop(
   geo = "place",
   year = 2023,
   vars = "^B01",
-  var_match = "regex"
+  var_match = "regex",
+  geoids = geoid$place
 )
 
-dec_2020 <- get_kc_pop(
+census_2020 <- get_kc_pop(
   dataset = "dhc",
   geo = "block",
   year = 2020,
   vars = "P12_001N",
-  var_match = "fixed"
+  var_match = "fixed",
+  county = sub("^29", "", geoid$county)
 )
 }
 

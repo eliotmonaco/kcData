@@ -1,132 +1,117 @@
-# Create data to test `get_kc_pop()`
+# Make data to test `get_kc_pop()`
 
 devtools::load_all()
 
-# Create raw data
-pop_input <- list()
-surv <- c("acs1", "acs5")
-year <- 2021
-
-# Test regex matching method (all others test fixed method)
-pop_input$acs1_city_2021_regex <- get_pop_acs(list(
-  survey = "acs1",
-  geography = "place",
-  year = 2021,
-  variables = c("B01002A_001", "B01002A_002", "B01002A_003"),
-  state = 29
-))
-
-for (i in 1:length(surv)) {
-  for (j in 1:length(year)) {
-    if (surv[i] == "acs1") {
-      geo <- "place"
-    } else if (surv[i] == "acs5") {
-      geo <- c("place", "county", "tract", "block group", "zcta")
-    }
-    for (k in 1:length(geo)) {
-      geo_nm <- sub("\\s", "", geo[k])
-      geo_nm <- sub("place", "city", geo_nm)
-      nm <- paste(surv[i], geo_nm, year[j], sep = "_")
-      args <- list(
-        survey = surv[i],
-        geography = geo[k],
-        year = year[j],
-        variables = "B01003_001",
-        state = 29,
-        key = keyring::key_get("census-api-key")
-      )
-      if (geo[k] == "zcta") {
-        args <- append(args, list(zcta = geoids$zcta$ids_2021))
-        args <- args[!grepl("state", names(args))]
-      }
-      pop_input[[nm]] <- get_pop_acs(args)
-    }
-  }
-}
-
-surv <- "dhc"
-year <- 2020
-
-for (i in 1:length(surv)) {
-  for (j in 1:length(year)) {
-    geo <- c("place", "county", "tract", "block group", "block", "zcta")
-    for (k in 1:length(geo)) {
-      geo_nm <- sub("\\s", "", geo[k])
-      geo_nm <- sub("place", "city", geo_nm)
-      nm <- paste(surv[i], geo_nm, year[j], sep = "_")
-      args <- list(
-        sumfile = surv[i],
-        geography = geo[k],
-        year = year[j],
-        variables = "P12_001N",
-        state = 29,
-        key = keyring::key_get("census-api-key")
-      )
-      if (geo[k] == "block") {
-        args <- append(args, list(county = c(037, 047, 095, 165)))
-      }
-      pop_input[[nm]] <- get_pop_dec(args)
-    }
-  }
-}
-
-# Create output data
-pop_output <- list()
-surv <- c("acs1", "acs5")
-year <- 2021
-
-pop_output$acs1_city_2021_regex <- get_kc_pop(
-  dataset = "acs1",
-  geo = "place",
-  year = 2021,
-  vars = "^B01002A",
-  var_match = "regex"
+# Mocked variable tables
+acs1_vars <- data.frame(
+  name = "B01003_001",
+  label = "Estimate!!Total",
+  concept = "TOTAL POPULATION"
 )
 
-for (i in 1:length(surv)) {
-  for (j in 1:length(year)) {
-    if (surv[i] == "acs1") {
-      geo <- "place"
-    } else if (surv[i] == "acs5") {
-      geo <- c("place", "county", "tract", "block group", "zcta")
-    }
-    for (k in 1:length(geo)) {
-      geo_nm <- sub("\\s", "", geo[k])
-      geo_nm <- sub("place", "city", geo_nm)
-      nm <- paste(surv[i], geo_nm, year[j], sep = "_")
-      pop_output[[nm]] <- get_kc_pop(
-        dataset = surv[i],
-        geo = geo[k],
-        year = year[j],
-        vars = "B01003_001",
-        var_match = "fixed",
-        key = keyring::key_get("census-api-key")
-      )
-    }
-  }
-}
+acs5_vars <- data.frame(
+  name = "B01003_001",
+  label = "Estimate!!Total",
+  concept = "TOTAL POPULATION",
+  geography = "block group"
+)
 
-surv <- "dhc"
-year <- 2020
+census_vars <- data.frame(
+  name = "P12_001N",
+  label = " !!Total:",
+  concept = "SEX BY AGE FOR SELECTED AGE CATEGORIES"
+)
 
-for (i in 1:length(surv)) {
-  for (j in 1:length(year)) {
-    geo <- c("place", "county", "tract", "block group", "block", "zcta")
-    for (k in 1:length(geo)) {
-      geo_nm <- sub("\\s", "", geo[k])
-      geo_nm <- sub("place", "city", geo_nm)
-      nm <- paste(surv[i], geo_nm, year[j], sep = "_")
-      pop_output[[nm]] <- get_kc_pop(
-        dataset = surv[i],
-        geo = geo[k],
-        year = year[j],
-        vars = "P12_001N",
-        var_match = "fixed",
-        key = keyring::key_get("census-api-key")
-      )
+# Mocked input data: ACS
+df <- data.frame(
+  survey = c("acs1", "acs1", rep("acs5", 5)),
+  geography = c("place", "place", "place", "county", "tract", "zcta", "zcta"),
+  year = c(rep(2021, 6), 2019),
+  variables = "B01003_001",
+  state = 29,
+  key = keyring::key_get("census-api-key")
+)
+
+ls <- split(df, 1:nrow(df))
+
+mock1 <- lapply(ls, \(args) {
+  if (args$geography == "zcta") {
+    if (args$year > 2019) {
+      args <- args[!grepl("state", names(args))]
+      args <- append(args, list(zcta = geoid$zcta2020))
+    } else {
+      args <- append(args, list(zcta = geoid$zcta2010))
     }
   }
-}
 
-saveRDS(pop_input, "tests/testthat/fixtures/pop_input.rds")
-saveRDS(pop_output, "tests/testthat/fixtures/pop_output.rds")
+  get_pop_acs(args)
+})
+
+names(mock1) <- paste0(
+  df$survey, "_", df$geography,
+  c("_regex", rep("", 4), 1, 2)
+)
+
+# Output data: ACS
+ls <- list(
+  dataset = as.list(c("acs1", "acs1", rep("acs5", 5))),
+  geo = list("place", "place", "place", "county", "tract", "zcta", "zcta"),
+  year = as.list(c(rep(2021, 6), 2019)),
+  vars = as.list(c("^B01003", rep("B01003_001", 6))),
+  var_match = as.list(c("regex", rep("fixed", 6))),
+  geoids = c(
+    as.list(rep(geoid$place, 3)),
+    list(geoid$county), list(geoid$tract2020),
+    list(geoid$zcta2020), list(geoid$zcta2010)
+  ),
+  key = keyring::key_get("census-api-key")
+)
+
+out1 <- purrr::pmap(ls, get_kc_pop)
+
+names(out1) <- names(mock1)
+
+# Mocked input data: Census
+df <- data.frame(
+  sumfile = "dhc",
+  geography = c("place", "county", "tract", "zcta"),
+  year = 2020,
+  variables = "P12_001N",
+  state = 29,
+  key = keyring::key_get("census-api-key")
+)
+
+ls <- split(df, 1:nrow(df))
+
+mock2 <- lapply(ls, get_pop_dec)
+
+names(mock2) <- paste0(df$sumfile, "_", df$geography)
+
+# Output data: Census
+ls <- list(
+  dataset = "dhc",
+  geo = list("place", "county", "tract", "zcta"),
+  year = 2020,
+  vars = "P12_001N",
+  var_match = "fixed",
+  geoids = list(geoid$place, geoid$county, geoid$tract2020, geoid$zcta2020),
+  key = keyring::key_get("census-api-key")
+)
+
+out2 <- purrr::pmap(ls, get_kc_pop)
+
+names(out2) <- names(mock2)
+
+# Save
+data <- list(
+  mock = c(
+    list(acs1_vars = acs1_vars),
+    list(acs5_vars = acs5_vars),
+    list(census_vars = census_vars),
+    mock1, mock2
+  ),
+  out = c(out1, out2)
+)
+
+saveRDS(data, "tests/testthat/fixtures/data_get_kc_pop.rds")
+

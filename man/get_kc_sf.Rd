@@ -38,7 +38,7 @@ census tract, census block group, census block, or zip code tabulation area
 (ZCTA)
 }
 
-Files are downloaded from the US Census Bureau using the \href{https://github.com/walkerke/tigris}{tigris}
+Shapefiles are downloaded from the US Census Bureau using the \href{https://github.com/walkerke/tigris}{tigris}
 package.
 }
 \details{

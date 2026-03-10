@@ -1,6 +1,8 @@
-# Make data for testing `get_kc_sf()`
+# Make data to test `get_kc_sf()`
 
 options(tigris_use_cache = TRUE)
+
+devtools::load_all()
 
 map_plot <- function(x, y) {
   ggplot2::ggplot() +
@@ -19,7 +21,7 @@ map_plot <- function(x, y) {
     )
 }
 
-# Mocked data
+# Mocked input data
 mock <- list()
 
 # CBSA/metro
@@ -92,7 +94,7 @@ r <- which(sf$GEOID20 %in% c(
 sf <- sf[sort(unique(c(r, r + 1))), ]
 mock$zcta_mo <- sf
 
-# Output
+# Output data
 out <- list()
 
 # intersect = "city", boundary = "clipped"
@@ -118,10 +120,10 @@ map_plot(sf$zcta$metro_clipped, sf$cbsa)
 map_plot(sf$county$metro_full, sf$cbsa)
 
 # Save
-ls <- list(
+data <- list(
   mock = mock,
   out = out
 )
 
-saveRDS(ls, "tests/testthat/fixtures/data_get_kc_sf.rds")
+saveRDS(data, "tests/testthat/fixtures/data_get_kc_sf.rds")
 

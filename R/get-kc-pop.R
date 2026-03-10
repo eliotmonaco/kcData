@@ -10,10 +10,12 @@
 #' [tc]:https://walker-data.com/tidycensus/index.html
 #'
 #' @details
-#' Data sets for geographies other than "place" are filtered for geographic
-#' units that intersect with Kansas City. These geographic units are determined
-#' by the shapefile downloaded for the specified year. If no shapefile has been
-#' downloaded for that year, an error is returned.
+#' ACS and census variables can be explored at the [Census Reporter][cr] website
+#' or by using [tidycensus::load_variables()] to download variables for a
+#' specific data set.
+#'
+#' GEOIDs can be obtained from US Census Bureau shapefiles or from the data set
+#' `geoid` in this package.
 #'
 #' # Additional resources
 #'
@@ -30,17 +32,15 @@
 #' @param dataset The data set to download. Passed to the `dataset` argument in
 #' [tidycensus::load_variables()] and either `survey` in [tidycensus::get_acs()]
 #' or `sumfile` in [tidycensus::get_decennial()].
-#' @param geo The geography (summary level) of the data set to download.
-#' @param year The year of the data set to download.
-#' @param vars A vector of variable names or a regular expression to match
-#' variable names for download.
-#' @param var_match The type of matching to perform on variable names. `"fixed"`
-#' matches the values in `vars` exactly, and `"regex"` matches to a regular
-#' expression pattern in `vars`.
-#' @param geoid An optional vector of GEOIDs to supply if the relevant spatial
-#' data sets are unavailable in kcData.
+#' @param geo The data set geography (summary level).
+#' @param year The data set year.
+#' @param vars The variables to download. Either a vector of variable names or a
+#' regular expression pattern.
+#' @param var_match Use `"fixed"` to match variable names in `vars` exactly or
+#' `"regex"` to match them to a regular expression pattern.
+#' @param geoids A vector of GEOIDs to filter the output.
 #' @param ... Additional arguments passed to [tidycensus::get_acs()] or
-#' [tidycensus::get_decennial()].
+#' [tidycensus::get_decennial()], such as `key` for the user's census API key.
 #'
 #' @returns A dataframe.
 #' @export
@@ -52,63 +52,36 @@
 #'   geo = "place",
 #'   year = 2023,
 #'   vars = "^B01",
-#'   var_match = "regex"
+#'   var_match = "regex",
+#'   geoids = geoid$place
 #' )
 #'
-#' dec_2020 <- get_kc_pop(
+#' census_2020 <- get_kc_pop(
 #'   dataset = "dhc",
 #'   geo = "block",
 #'   year = 2020,
 #'   vars = "P12_001N",
-#'   var_match = "fixed"
+#'   var_match = "fixed",
+#'   county = sub("^29", "", geoid$county)
 #' )
 #' }
 #'
 get_kc_pop <- function(
-    dataset,
-    geo = c("place", "county", "tract", "block group", "block", "zcta"),
-    year,
-    vars,
-    var_match = c("fixed", "regex"),
-    geoid = NULL,
-    ...) {
+  dataset,
+  geo = c("place", "county", "tract", "blockgroup", "block", "zcta"),
+  year,
+  vars,
+  var_match = c("fixed", "regex"),
+  geoids = NULL,
+  ...
+) {
   requireNamespace("tidycensus", quietly = TRUE)
 
   geo <- match.arg(geo)
   var_match <- match.arg(var_match)
 
-  # Get GEOIDs for the given `geo` & `year` to filter data
-  g <- ifelse(geo == "place", "city", sub("\\s", "", geo))
-
-  if (g %in% c("city", "county")) {
-    id <- kcData::geoids[[g]]
-  } else {
-    nm <- paste0("ids", year)
-    id <- kcData::geoids[[g]][[nm]]
-  }
-
-  if (is.null(id) & is.null(geoid)) {
-    m <- paste(
-      "GEOIDs for", geo, "in", year,
-      "are unavailable because the shapefiles are not in kcData.",
-      "GEOIDs can be added via the `geoid` argument."
-    )
-    stop(m)
-  }
-
-  if (is.null(id) & !is.null(geoid)) {
-    id <- geoid
-  }
-
   # Get variable table
-  vtbl <- tryCatch(
-    get_pop_vars(year, dataset),
-    error = function(e) {
-      cat("tidycensus error:", conditionMessage(e), "\n")
-      NULL
-    }
-  )
-  if (is.null(vtbl)) return(NULL)
+  vtbl <- get_pop_vars(year, dataset)
 
   # Filter table using `vars`
   if (var_match == "fixed") {
@@ -121,8 +94,8 @@ get_kc_pop <- function(
   names(vtbl) <- sub("name", "variable", names(vtbl))
 
   if (grepl("acs", dataset)) {
-    # Create arg list for `get_pop_acs()`
-    args <- list(
+    # Download ACS
+    args <- list( # arg list for `get_pop_acs()`
       survey = dataset,
       geography = geo,
       year = year,
@@ -133,7 +106,7 @@ get_kc_pop <- function(
 
     if (geo == "zcta") {
       # Add `zcta` argument to `args`
-      args <- append(args, list(zcta = id))
+      args <- append(args, list(zcta = geoids))
 
       # Remove `state` argument conditionally
       if (year > 2019) {
@@ -142,22 +115,15 @@ get_kc_pop <- function(
     }
 
     # Get ACS data
-    df <- tryCatch(
-      get_pop_acs(args),
-      error = function(e) {
-        cat("tidycensus error:", conditionMessage(e), "\n")
-        NULL
-      }
-    )
-    if (is.null(df)) return(NULL)
+    df <- get_pop_acs(args)
 
-    if (geo != "zcta") {
-      # Filter data by GEOID
-      df <- df[df$GEOID %in% id, ]
+    # Filter data by GEOID
+    if (geo != "zcta" & !is.null(geoids)) {
+      df <- df[df$GEOID %in% geoids, ]
     }
   } else {
-    # Create arg list for `get_pop_dec()`
-    args <- list(
+    # Download census
+    args <- list( # arg list for `get_pop_dec()`
       sumfile = dataset,
       geography = geo,
       year = year,
@@ -166,28 +132,13 @@ get_kc_pop <- function(
       ...
     )
 
-    if (geo == "block") {
-      # Add `county` argument to `args`
-      args <- append(args, list(county = c("037", "047", "095", "165")))
-    }
-
     # Get decennial census data
-    df <- tryCatch(
-      get_pop_dec(args),
-      error = function(e) {
-        cat("tidycensus error:", conditionMessage(e), "\n")
-        NULL
-      }
-    )
-
-    if (is.null(df)) return(NULL)
+    df <- get_pop_dec(args)
 
     # Filter data by GEOID
-    if (geo == "zcta" & as.numeric(year) == 2010) {
-      id <- paste0("29", id)
+    if (!is.null(geoids)) {
+      df <- df[df$GEOID %in% geoids, ]
     }
-
-    df <- df[df$GEOID %in% id, ]
   }
 
   # Join variable details from `vtbl`
