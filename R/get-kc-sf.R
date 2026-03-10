@@ -6,7 +6,7 @@
 #' - the Kansas City city boundary
 #' - the Kansas City metro region boundary
 #' - a set of smaller geographies intersecting with one of the above: county,
-#' census tract, census block group, census block, or zip code tabulation area
+#' census tract, census block group, census block, or ZIP code tabulation area
 #' (ZCTA)
 #'
 #' Shapefiles are downloaded from the US Census Bureau using the [tigris][tig]

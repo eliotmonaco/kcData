@@ -43,8 +43,7 @@ return_popest_table <- function(years) {
 }
 
 transpose_popest <- function(df) {
-  df <- t(df[, grepl("^est_\\d{4}$", colnames(df))]) |>
-    as.data.frame()
+  df <- as.data.frame(t(df[, grepl("^est_\\d{4}$", colnames(df))]))
 
   df$year <- as.numeric(sub("est_", "", rownames(df)))
 

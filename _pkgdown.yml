@@ -11,16 +11,8 @@ reference:
     - get_kc_sf
     - return_popest_table
 
-  - title: American Community Survey data
+  - title: Datasets
   - contents:
-    - starts_with("acs1_")
-    - starts_with("acs5_")
-
-  - title: Decennial census data
-  - contents:
-    - starts_with("dec_")
-
-  - title: Population estimates
-  - contents:
+    - geoid
     - starts_with("popest_")
 

@@ -34,7 +34,7 @@ Download a TIGER/Line shapefile containing
 \item the Kansas City city boundary
 \item the Kansas City metro region boundary
 \item a set of smaller geographies intersecting with one of the above: county,
-census tract, census block group, census block, or zip code tabulation area
+census tract, census block group, census block, or ZIP code tabulation area
 (ZCTA)
 }
 
