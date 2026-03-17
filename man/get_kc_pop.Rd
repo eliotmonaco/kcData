@@ -51,6 +51,9 @@ specific data set.
 
 GEOIDs can be obtained from US Census Bureau shapefiles or from the data set
 \code{geoid} in this package.
+
+By default, \code{state = 29} is included in the call to the relevant tidycensus
+function.
 }
 \section{Additional resources}{
 \itemize{
@@ -63,22 +66,47 @@ GEOIDs can be obtained from US Census Bureau shapefiles or from the data set
 
 \examples{
 \dontrun{
-acs5_2023 <- get_kc_pop(
-  dataset = "acs5",
+' # Download place-level data from the 2024 1-year ACS
+' acs1_2024_place <- get_kc_pop(
+  dataset = "acs1",
   geo = "place",
-  year = 2023,
+  year = 2024,
   vars = "^B01",
   var_match = "regex",
-  geoids = geoid$place
+  geoids = geoid$place,
+  key = keyring::key_get("census-api-key")
 )
 
-census_2020 <- get_kc_pop(
+# Download ZCTA-level data from the 2023 5-year ACS
+acs5_2023_zcta <- get_kc_pop(
+  dataset = "acs5",
+  geo = "zcta",
+  year = 2023,
+  vars = "B01001_001",
+  var_match = "fixed",
+  geoids = geoid$zcta2020,
+  key = keyring::key_get("census-api-key")
+)
+
+# Download census block-level data from the 2020 census
+block <- get_kc_sf(
+  geo = "block",
+  year = 2024,
+  intersect = "city",
+  geometry = "full"
+)
+
+geoid_block <- block$GEOID20
+
+census_2020_block <- get_kc_pop(
   dataset = "dhc",
   geo = "block",
   year = 2020,
   vars = "P12_001N",
   var_match = "fixed",
-  county = sub("^29", "", geoid$county)
+  geoids = geoid_block,
+  county = sub("^29", "", geoid$county),
+  key = keyring::key_get("census-api-key")
 )
 }
 

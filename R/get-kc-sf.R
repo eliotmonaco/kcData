@@ -67,8 +67,12 @@ get_kc_sf <- function(
   intersect = c("city", "metro"),
   geometry = c("clipped", "full")
 ) {
-  requireNamespace("tigris", quietly = TRUE)
-  requireNamespace("sf", quietly = TRUE)
+  inst_sf <- requireNamespace("sf", quietly = TRUE)
+  inst_tigris <- requireNamespace("tigris", quietly = TRUE)
+
+  if (!inst_sf | ! inst_tigris) {
+    stop("The sf and tigris packages must be installed to use this function.")
+  }
 
   geo <- match.arg(geo)
   intersect <- match.arg(intersect)
