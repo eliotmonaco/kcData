@@ -66,8 +66,8 @@ function.
 
 \examples{
 \dontrun{
-' # Download place-level data from the 2024 1-year ACS
-' acs1_2024_place <- get_kc_pop(
+# Download place-level data from the 2024 1-year ACS
+acs1_2024_place <- get_kc_pop(
   dataset = "acs1",
   geo = "place",
   year = 2024,
