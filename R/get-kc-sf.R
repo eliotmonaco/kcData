@@ -62,7 +62,7 @@
 #' }
 #'
 get_kc_sf <- function(
-  geo = c("cbsa", "place", "county", "tract", "blockgroup", "block", "zcta"),
+  geo = c("cbsa", "place", "county", "tract", "block group", "block", "zcta"),
   year,
   intersect = c("city", "metro"),
   geometry = c("clipped", "full")
@@ -167,7 +167,7 @@ get_sf <- function(geo, state = NULL, year = NULL, county = NULL) {
     tigris::counties(state = state, year = year)
   } else if (geo == "tract") {
     tigris::tracts(state = state, year = year)
-  } else if (geo == "blockgroup") {
+  } else if (geo == "block group") {
     tigris::block_groups(state = state, county = county, year = year)
   } else if (geo == "block") {
     tigris::blocks(state = state, county = county, year = year)

@@ -96,7 +96,7 @@
 #'
 get_kc_pop <- function(
   dataset,
-  geo = c("place", "county", "tract", "blockgroup", "block", "zcta"),
+  geo = c("place", "county", "tract", "block group", "block", "zcta"),
   year,
   vars,
   var_match = c("fixed", "regex"),

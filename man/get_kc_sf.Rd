@@ -5,7 +5,7 @@
 \title{Get simple features objects for Kansas City}
 \usage{
 get_kc_sf(
-  geo = c("cbsa", "place", "county", "tract", "blockgroup", "block", "zcta"),
+  geo = c("cbsa", "place", "county", "tract", "block group", "block", "zcta"),
   year,
   intersect = c("city", "metro"),
   geometry = c("clipped", "full")
