@@ -12,7 +12,7 @@ US Census Bureau using the
 ``` r
 get_kc_pop(
   dataset,
-  geo = c("place", "county", "tract", "blockgroup", "block", "zcta"),
+  geo = c("place", "county", "tract", "block group", "block", "zcta"),
   year,
   vars,
   var_match = c("fixed", "regex"),

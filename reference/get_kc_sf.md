@@ -17,7 +17,7 @@ Shapefiles are downloaded from the US Census Bureau using the
 
 ``` r
 get_kc_sf(
-  geo = c("cbsa", "place", "county", "tract", "blockgroup", "block", "zcta"),
+  geo = c("cbsa", "place", "county", "tract", "block group", "block", "zcta"),
   year,
   intersect = c("city", "metro"),
   geometry = c("clipped", "full")

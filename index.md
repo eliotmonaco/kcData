@@ -8,5 +8,6 @@ City.
 Install from GitHub:
 
 ``` r
+
 remotes::install_github("eliotmonaco/kcData")
 ```
