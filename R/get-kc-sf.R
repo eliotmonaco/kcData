@@ -78,15 +78,27 @@ get_kc_sf <- function(
   intersect <- match.arg(intersect)
   geometry <- match.arg(geometry)
 
-  if (geo == "place" |
-    all(!geo %in% c("cbsa", "place"), intersect == "city")) {
+  cond1 <- all(!geo %in% c("cbsa", "place"), intersect == "city")
+
+  cond2 <- all(!geo %in% c("cbsa", "place"), intersect == "metro")
+
+  if (geo == "place" | cond1) {
     # Download the Missouri places shapefile
-    sf1 <- get_sf(geo = "place", state = 29, year = year)
+    if (year > 2010) {
+      sf1 <- get_sf(geo = "place", state = 29, year = year)
+    } else {
+      message(paste(
+        "`tigris::places()` is not available for years prior to 2011. The KC",
+        "places shapefile for 2011 is downloaded or used for finding the",
+        "intersection of smaller geographies instead."
+      ))
+
+      sf1 <- get_sf(geo = "place", state = 29, year = 2011)
+    }
 
     # Filter for the KC boundary
     sf1 <- sf1[which(sf1$PLACEFP == "38000"), ]
-  } else if (geo == "cbsa" |
-    all(!geo %in% c("cbsa", "place"), intersect == "metro")) {
+  } else if (geo == "cbsa" | cond2) {
     # Download the CBSA shapefile
     sf1 <- get_sf(geo = "cbsa", year = year)
 
@@ -125,7 +137,9 @@ get_kc_sf <- function(
 
   sf2b <- sf::st_filter(sf2, sf1, .predicate = sf::st_touches)
 
-  var <- colnames(sf2a)[grepl("^GEOID(10|20)?$", colnames(sf2a))]
+  p <- "^GEOID(10|20)?$|IDFP00$|^ZCTA5CE00$"
+
+  var <- colnames(sf2a)[grepl(p, colnames(sf2a))]
 
   sf2 <- sf2a[!sf2a[[var]] %in% sf2b[[var]], ]
 

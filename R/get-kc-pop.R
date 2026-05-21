@@ -161,6 +161,7 @@ get_kc_pop <- function(
       year = year,
       variables = vtbl$variable,
       state = 29,
+      county = c("037", "047", "095", "165"),
       ...
     )
 
