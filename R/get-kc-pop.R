@@ -126,8 +126,8 @@ get_kc_pop <- function(
   names(vtbl) <- sub("name", "variable", names(vtbl))
 
   if (grepl("acs", dataset)) {
-    # Download ACS
-    args <- list( # arg list for `get_pop_acs()`
+    # Arguments for `get_pop_acs()`
+    args <- list(
       survey = dataset,
       geography = geo,
       year = year,
@@ -154,16 +154,20 @@ get_kc_pop <- function(
       df <- df[df$GEOID %in% geoids, ]
     }
   } else {
-    # Download census
-    args <- list( # arg list for `get_pop_dec()`
+    # Arguments for `get_pop_dec()`
+    args <- list(
       sumfile = dataset,
       geography = geo,
       year = year,
       variables = vtbl$variable,
       state = 29,
-      county = c("037", "047", "095", "165"),
       ...
     )
+
+    if (geo %in% c("county", "tract", "block group", "block")) {
+      # Add `county` argument to `args`
+      args <- append(args, list(county = c("037", "047", "095", "165")))
+    }
 
     # Get decennial census data
     df <- get_pop_dec(args)
