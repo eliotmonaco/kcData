@@ -199,7 +199,7 @@ get_kc_pop <- function(
 }
 
 get_pop_vars <- function(year, dataset) {
-  tidycensus::load_variables(year = year, dataset = dataset, cache = TRUE)
+  tidycensus::load_variables(year = year, dataset = dataset)
 }
 
 get_pop_acs <- function(arg_list) {
